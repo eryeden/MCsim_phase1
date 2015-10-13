@@ -105,10 +105,10 @@ void gl_execute2(GLFWwindow * window) {
 	Space::Object bldcm0, bldcm1, bldcm2, bldcm3, body;
 	Space::Model mdl, mdl1;
 
-//	obj.LoadModel("./../../OpenGL/models/keychain.stl", vec3(0.964, 0.714, 0));
+	//obj.LoadModel("C:/Users/ery/OneDrive/Documents/Models/Suspension.stl", vec3(0.964, 0.714, 0));
 //	obj1.LoadModel("./../../OpenGL/models/t1.stl", vec3(0.964, 0.714, 0));
 //	obj2.LoadModel("./../../OpenGL/models/t1.stl", vec3(0, 0.71, 0.101));
-	obj.LoadModel("./../../OpenGL/models/Asm.stl", vec3(0.964, 0.714, 0));
+	//obj.LoadModel("./../../OpenGL/models/Asm.stl", vec3(0.964, 0.714, 0));
 	obj1.LoadModel("./../../OpenGL/models/bldcm.stl", vec3(0, 0.71, 0.101));
 	bldcm0.LoadModel("./../../OpenGL/models/bldcm.stl", vec3(0, 0.71, 0.101));
 	bldcm1.LoadModel("./../../OpenGL/models/bldcm.stl", vec3(0, 0.71, 0.101));
