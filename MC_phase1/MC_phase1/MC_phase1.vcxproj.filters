@@ -13,63 +13,93 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\OpenGL">
+      <UniqueIdentifier>{19d868ab-46f1-43bf-ad8c-c77de991f93a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\OpenGL">
+      <UniqueIdentifier>{db686f01-2107-4113-8852-8d9f6f6cbe6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Sim">
+      <UniqueIdentifier>{d0e2aaa3-cb4c-4014-bc4b-fb0e15010b61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Sim">
+      <UniqueIdentifier>{36330b76-1b14-4adb-8ce1-dbbb081cdcbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Controller">
+      <UniqueIdentifier>{00d1b14d-1cbe-4442-95f0-10bdc6657e82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Controller">
+      <UniqueIdentifier>{acd15184-07de-4ae8-aa9f-424577f784b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Sim\src\MC_components.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sim\src\MC_core.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Sim\src\MC_generator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\controls.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\Importer.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\main.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\Object.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\PostProcessing.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\shader.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\texture.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenGL\src\World.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sim\MC_components.cpp">
+      <Filter>ソース ファイル\Sim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sim\MC_core.cpp">
+      <Filter>ソース ファイル\Sim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Sim\MC_generator.cpp">
+      <Filter>ソース ファイル\Sim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Controller\Base.cpp">
+      <Filter>ソース ファイル\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Controller\Controller_test.cpp">
+      <Filter>ソース ファイル\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Sim\include\MC.hpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\controls.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\Importer.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\PostProcessing.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\shader.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\texture.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\World.hpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Sim\MC.hpp">
+      <Filter>ヘッダー ファイル\Sim</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Controller\Controller_test.hpp">
+      <Filter>ヘッダー ファイル\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Controller\Base.hpp">
+      <Filter>ヘッダー ファイル\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

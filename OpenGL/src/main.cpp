@@ -188,6 +188,7 @@ void gl_execute2(GLFWwindow * window) {
 		_update_fps_counter(window);
 
 		//world.Render();
+
 		world.RenderShadowMapping();
 
 		glfwSwapBuffers(window);
