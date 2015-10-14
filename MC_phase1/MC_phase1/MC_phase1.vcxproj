@@ -92,13 +92,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ExecutablePath>$(SolutionDir)../OpenGL/bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)../OpenGL/include;$(SolutionDir)../Sim/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)../OpenGL/include;$(SolutionDir)../Sim/include;$(SolutionDir)../Common;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../OpenGL/lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)../build/$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ExecutablePath>$(SolutionDir)../OpenGL/bin;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)../OpenGL/include;$(SolutionDir)../Sim/include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)../OpenGL/include;$(SolutionDir)../Sim/include;$(SolutionDir)../Common;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)../OpenGL/lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)../build/$(Configuration)\</OutDir>
   </PropertyGroup>
