@@ -31,6 +31,9 @@
     <Filter Include="ヘッダー ファイル\Controller">
       <UniqueIdentifier>{acd15184-07de-4ae8-aa9f-424577f784b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLSL">
+      <UniqueIdentifier>{c9ba8eb5-185a-402b-8b9f-4c705331524e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\OpenGL\src\controls.cpp">
@@ -101,5 +104,62 @@
     <ClInclude Include="..\..\include\Controller\Base.hpp">
       <Filter>ヘッダー ファイル\Controller</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\OpenGL\glsl\depth_viewer_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\fxaa_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\fxaa_fs2.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\fxaa_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\fxaa_vs2.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\pp_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\pp_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_depth_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_depth_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_standard_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_standard_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\StandardShading_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\StandardShading_fs_non_tex.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\StandardShading_vs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\StandardShading_vs_non_tex.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="..\..\OpenGL\glsl\depth_viewer_fs.glsl">
+      <Filter>GLSL</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

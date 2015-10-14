@@ -44,6 +44,27 @@
     <ClInclude Include="..\..\OpenGL\include\texture.hpp" />
     <ClInclude Include="..\..\OpenGL\include\World.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\OpenGL\glsl\depth_viewer_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\depth_viewer_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\fxaa_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\fxaa_fs2.glsl" />
+    <None Include="..\..\OpenGL\glsl\fxaa_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\fxaa_vs2.glsl" />
+    <None Include="..\..\OpenGL\glsl\pp_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\pp_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_depth_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_depth_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_standard_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_standard_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\shadow_mapping_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\StandardShading_fs.glsl" />
+    <None Include="..\..\OpenGL\glsl\StandardShading_fs_non_tex.glsl" />
+    <None Include="..\..\OpenGL\glsl\StandardShading_vs.glsl" />
+    <None Include="..\..\OpenGL\glsl\StandardShading_vs_non_tex.glsl" />
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2C6D504C-F38F-4CB9-B435-009F9C5D37F1}</ProjectGuid>
     <RootNamespace>MC_phase1</RootNamespace>

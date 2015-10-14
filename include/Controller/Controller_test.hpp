@@ -21,6 +21,9 @@ namespace Controller {
 		virtual ~Controller_test() = 0;
 
 
+		void Initialize();
+		void Update();
+
 
 	private:
 

@@ -13,6 +13,10 @@
 
 namespace Controller {
 
+	//これを継承して使う
+	//Sim、Controller、Worldをまとめる上位存在が最初にInitializeを呼び、Updateを更新時に呼ぶようにする
+
+
 	class Base {
 	public:
 		Base(MC::Core & _mc_core);
