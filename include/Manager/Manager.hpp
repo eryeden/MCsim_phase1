@@ -20,14 +20,14 @@ namespace SimulationManager {
 	//Sim、Controller、Worldをまとめる上位存在が最初にInitializeを呼び、Updateを更新時に呼ぶようにする
 
 
-	class SimulationManager {
+	class Manager {
 	public:
-		SimulationManager(
+		Manager(
 			Controller::Base & _controller_base
 			, MC::Core & _mc_core
 			);
 
-		virtual ~SimulationManager() = 0;
+		virtual ~Manager() = 0;
 
 
 	private:

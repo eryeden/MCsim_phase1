@@ -57,7 +57,7 @@ namespace Space {
 
 
 		void GenerateModel(MC::Core & _mc_core);
-		void SetModelParameter();
+		//void SetModelParameter();
 
 
 
