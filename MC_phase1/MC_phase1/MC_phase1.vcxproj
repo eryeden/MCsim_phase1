@@ -25,10 +25,12 @@
     <ClCompile Include="..\..\OpenGL\src\Object.cpp" />
     <ClCompile Include="..\..\OpenGL\src\PostProcessing.cpp" />
     <ClCompile Include="..\..\OpenGL\src\shader.cpp" />
+    <ClCompile Include="..\..\OpenGL\src\Supervisor.cpp" />
     <ClCompile Include="..\..\OpenGL\src\texture.cpp" />
     <ClCompile Include="..\..\OpenGL\src\World.cpp" />
     <ClCompile Include="..\..\src\Controller\Base.cpp" />
     <ClCompile Include="..\..\src\Controller\Controller_test.cpp" />
+    <ClCompile Include="..\..\src\Manager\Manager.cpp" />
     <ClCompile Include="..\..\src\Sim\MC_components.cpp" />
     <ClCompile Include="..\..\src\Sim\MC_core.cpp" />
     <ClCompile Include="..\..\src\Sim\MC_generator.cpp" />
@@ -36,11 +38,13 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\Controller\Base.hpp" />
     <ClInclude Include="..\..\include\Controller\Controller_test.hpp" />
+    <ClInclude Include="..\..\include\Manager\Manager.hpp" />
     <ClInclude Include="..\..\include\Sim\MC.hpp" />
     <ClInclude Include="..\..\OpenGL\include\controls.hpp" />
     <ClInclude Include="..\..\OpenGL\include\Importer.hpp" />
     <ClInclude Include="..\..\OpenGL\include\PostProcessing.hpp" />
     <ClInclude Include="..\..\OpenGL\include\shader.hpp" />
+    <ClInclude Include="..\..\OpenGL\include\Supervisor.hpp" />
     <ClInclude Include="..\..\OpenGL\include\texture.hpp" />
     <ClInclude Include="..\..\OpenGL\include\World.hpp" />
   </ItemGroup>
@@ -64,6 +68,7 @@
     <None Include="..\..\OpenGL\glsl\StandardShading_vs.glsl" />
     <None Include="..\..\OpenGL\glsl\StandardShading_vs_non_tex.glsl" />
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2C6D504C-F38F-4CB9-B435-009F9C5D37F1}</ProjectGuid>

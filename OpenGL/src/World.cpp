@@ -39,6 +39,38 @@ World::World(GLFWwindow * _window)
 
 }
 
+World::World() 
+	:gnd()
+#ifdef USE_SHADOWMAPPING
+	, SHADOW_WIDTH(1024)
+	, SHADOW_HEIGHT(1024)
+#endif
+{
+	;
+}
+
+//コードの重複
+void World::Initialize(GLFWwindow * _window) {
+	window = _window;
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
+
+	position_camera = vec3(10.0f, 10.0f, 10.0f);
+	position_light = vec3(0.0f, 0.0f, 5.0f);
+
+	glfwGetWindowSize(window, &width, &height);
+
+	View = lookAt(position_camera
+		, vec3(0, 0, 0)
+		, vec3(0, 0, 1));
+
+	Projection = perspective(45.0f, (float)width / (float)height, 0.1f, 10000.0f);
+
+	gnd.Initialize(100, 100, 1);
+	gnd.InitChessBoard(100, 100, 1);
+}
+
 World::~World() {
 #ifdef USE_POSTPROCESS
 	delete pp_fxaa;

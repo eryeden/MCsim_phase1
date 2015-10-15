@@ -453,7 +453,11 @@ void Model::RenderAxisShort() {
 }
 
 
-Ground::Ground(GLfloat _width, GLfloat _height, GLfloat _grid_interval) {
+Ground::Ground(
+	const GLfloat & _width
+	, const GLfloat & _height
+	, const GLfloat & _grid_interval
+	) {
 	GLfloat wd2 = _width / 2.0;
 	GLfloat hd2 = _height / 2.0;
 	GLfloat vertices_ground[] = {
@@ -602,6 +606,164 @@ Ground::Ground(GLfloat _width, GLfloat _height, GLfloat _grid_interval) {
 		, GL_STATIC_DRAW);
 	number_of_indices = vertices_grid.size();
 
+}
+
+Ground::Ground() {
+	;
+}
+
+void Ground::Initialize(
+	const GLfloat & _width
+	, const GLfloat & _height
+	, const GLfloat & _grid_interval
+	) {
+	GLfloat wd2 = _width / 2.0;
+	GLfloat hd2 = _height / 2.0;
+	GLfloat vertices_ground[] = {
+		-wd2, hd2, 0
+		, -wd2, -hd2, 0
+		, wd2, hd2, 0
+		, -wd2, -hd2, 0
+		, wd2, -hd2, 0
+		, wd2, hd2, 0
+	};
+
+	GLfloat vertices_ground2[] = {
+		-wd2, 0, -hd2
+		, -wd2, 0, hd2
+		, wd2, 0, -hd2
+		, -wd2, 0, hd2
+		, wd2, 0, hd2
+		, wd2, 0, -hd2
+	};
+
+	GLfloat colors_ground[] = {
+		0.99, 0.99, 0.99
+		, 0.99, 0.99, 0.99
+		, 0.99, 0.99, 0.99
+		, 0.99, 0.99, 0.99
+		, 0.99, 0.99, 0.99
+		, 0.99, 0.99, 0.99
+	};
+
+	GLfloat normal_ground[] = {
+		0.0, 0.0, 1.0
+		, 0.0, 0.0, 1.0
+		, 0.0, 0.0, 1.0
+		, 0.0, 0.0, 1.0
+		, 0.0, 0.0, 1.0
+		, 0.0, 0.0, 1.0
+	};
+
+	glGenBuffers(1, &vertex_buffer_ground);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_ground);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 18
+		, &vertices_ground2
+		, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &normal_buffer_ground);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_buffer_ground);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 18
+		, normal_ground
+		, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &color_buffer_ground);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer_ground);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 18
+		, colors_ground
+		, GL_STATIC_DRAW);
+
+
+	//GRID
+	std::vector<vec3> vertices_grid;
+	std::vector<vec3> normals_grid;
+	std::vector<vec3> colors_grid;
+
+	GLfloat i, j;
+	i = j = 0;
+	vec3 tmp;// = vec3(i, hd2, 0);
+	vec3 color = vec3(0.6, 0.6, 0.6);
+	vec3 normal = vec3(0, 0, 1);
+
+	while (1) {
+		if (i > wd2) {
+			break;
+		}
+		tmp = vec3(i, 0.01, -hd2);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(i, 0.01, hd2);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(-i, 0.01, -hd2);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(-i, 0.01, hd2);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		i += _grid_interval;
+	}
+
+	i = 0;
+	while (1) {
+		if (i > hd2) {
+			break;
+		}
+		tmp = vec3(wd2, 0.01, -i);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(-wd2, 0.01, -i);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(wd2, 0.01, i);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		tmp = vec3(-wd2, 0.01, i);
+		vertices_grid.push_back(tmp);
+		normals_grid.push_back(normal);
+		colors_grid.push_back(color);
+
+		i += _grid_interval;
+	}
+
+	glGenBuffers(1, &vertex_buffer_grid);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_grid);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(vec3)  * vertices_grid.size()
+		, &vertices_grid[0]
+		, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &normal_buffer_grid);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_buffer_grid);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(vec3) * normals_grid.size()
+		, &normals_grid[0]
+		, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &color_buffer_grid);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer_grid);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(vec3) * colors_grid.size()
+		, &colors_grid[0]
+		, GL_STATIC_DRAW);
+	number_of_indices = vertices_grid.size();
 }
 
 

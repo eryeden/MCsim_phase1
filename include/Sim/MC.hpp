@@ -24,7 +24,16 @@ static const unsigned char ID_COMPONENT = 0x03; //STLファイルにより形状を指定
 class Block{
 public:
 	Block();
-	Block(double m);
+	Block(double _mass);
+	Block(const double & _mass
+		, const Eigen::Matrix3d & _J
+		, const Eigen::Vector3d & _c_o_g
+		, const Eigen::Vector3d & _r);
+	Block(const double & _mass
+		, const Eigen::Matrix3d & _J
+		, const Eigen::Vector3d & _c_o_g
+		, const Eigen::Vector3d & _r
+		, const unsigned char & _id);
 	double mass;
 	Eigen::Matrix3d J; //慣性テンソル
 	Eigen::Vector3d c_o_g; //構成時重心座標
@@ -36,7 +45,7 @@ public:
 
 class Cylinder : public Block{
 public:
-	Cylinder(double m, double r, double h);
+	Cylinder(const double &_mass, const double & _r, const double &_h);
 	double R;
 	double h;
 	void calc_m_o_i();
@@ -45,7 +54,7 @@ public:
 
 class Cuboid : public Block{
 public:
-	Cuboid(double m, double w, double h, double d);
+	Cuboid(const double &_mass, const double &_w, const double &_h, const double &_d);
 	double w;
 	double h;
 	double d;
@@ -58,8 +67,11 @@ public:
 	StLComponent();
 	StLComponent(const std::string &p2stl);
 	StLComponent(const std::string &p2stl, const Eigen::Matrix3d &_J, const Eigen::Vector3d &_c_o_g);
-	StLComponent(const std::string &p2stl, const Eigen::Matrix3d &_J, const Eigen::Vector3d &_c_o_g,
-				const Eigen::Matrix3d &m_att);
+	StLComponent(
+		const std::string &p2stl
+		, const Eigen::Matrix3d &_J
+		, const Eigen::Vector3d &_c_o_g
+		, const Eigen::Matrix3d &m_att);
 
 	void set_attitude(Eigen::Matrix3d m_att);
 	void set_path_to_stl(std::string p2stl);
@@ -70,9 +82,12 @@ private:
 };
 
 
-class MotorPlop : public Cylinder{
-public:
-	MotorPlop(double m, double R, double h, double c_t, double c_q);
+class MotorPlop {
+public:						 
+	MotorPlop(double c_t, double c_q);
+	MotorPlop(
+		const double & _c_t, const double & _c_q
+		, const double & _w_m, const Eigen::Matrix3d & _Jr);
 	double c_t;
 	double c_q;
 	double w_m; //ローター角速度
@@ -82,20 +97,26 @@ public:
 	Eigen::Vector3d get_l(); //角運動量
 };
 
+//シリンダー型のモーター/プロペラ
+class CylinderMotorPlop
+	: public Cylinder
+	, public MotorPlop
+{
+
+
+};
+
 //モーター描画にSTLファイルを使用する
-class StLMotorPlop : public StLComponent{
+class StLMotorPlop 
+	: public StLComponent
+	, public MotorPlop
+{
 public:
 	StLMotorPlop(double &_c_t, double &_c_q, Eigen::Matrix3d &_Jr);
-	StLMotorPlop(double &_c_t, double &_c_q, Eigen::Matrix3d &_Jr,
-					const std::string &p2stl, const Eigen::Matrix3d &_J, 
-					const Eigen::Vector3d &_c_o_g, const Eigen::Matrix3d &m_att);
-	double c_t;
-	double c_q;
-	double w_m; //ローター角速度
-	Eigen::Matrix3d Jr; //回転部慣性テンソル
-	Eigen::Vector3d get_f(); //スラスト
-	Eigen::Vector3d get_tau(); //トルク
-	Eigen::Vector3d get_l(); //角運動量
+	StLMotorPlop(
+		double &_c_t, double &_c_q, Eigen::Matrix3d &_Jr
+		, const std::string &p2stl, const Eigen::Matrix3d &_J
+		, const Eigen::Vector3d &_c_o_g, const Eigen::Matrix3d &m_att);
 
 };
 

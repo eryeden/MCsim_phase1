@@ -251,7 +251,18 @@ namespace Space {
 
 	class Ground {
 	public:
-		Ground(GLfloat _width, GLfloat _height, GLfloat _grid_interval);
+		Ground(
+			const GLfloat & _width
+			, const GLfloat & _height
+			, const GLfloat & _grid_interva);
+
+		//読んだ場合、後でInitializeが必要
+		Ground();
+
+		void Initialize(
+			const GLfloat & _width
+			, const GLfloat & _height
+			, const GLfloat & _grid_interval);
 		void InitChessBoard(GLfloat _width, GLfloat _height, GLfloat _interval);
 		void Render();
 		void RenderGrid();
@@ -281,7 +292,11 @@ namespace Space {
 	class World {
 	public:
 		World(GLFWwindow * _window);
+		//これで読んだ場合、必ずInitializeが必要
+		World();
 		~World();
+		
+		void Initialize(GLFWwindow * _window);
 
 		void BindShader(
 			const std::string & _path_to_vshader_use_texture

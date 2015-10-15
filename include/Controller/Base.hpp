@@ -28,6 +28,7 @@ namespace Controller {
 
 
 	private:
+	protected:
 		MC::Core & core;
 
 	};

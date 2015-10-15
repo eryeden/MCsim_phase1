@@ -15,9 +15,9 @@ MC::Block::Block()
 	;
 }
 
-MC::Block::Block(double m)
+MC::Block::Block(double _mass)
 	:
-	mass(m),
+	mass(_mass),
 	J(Matrix3d::Zero()),
 	c_o_g(Vector3d::Zero()),
 	r(Vector3d::Zero())
@@ -25,10 +25,41 @@ MC::Block::Block(double m)
 	;
 }
 
-MC::Cylinder::Cylinder(double m, double tr, double th)
+MC::Block::Block(
+	const double & _mass
+	, const Eigen::Matrix3d & _J
+	, const Eigen::Vector3d & _c_o_g
+	, const Eigen::Vector3d & _r)
+	:mass(_mass)
+	, J(_J)
+	, c_o_g(_c_o_g)
+	, r(_r)
+	, id(ID_NONE)
+{
+	;
+}
+
+
+MC::Block::Block(
+	const double & _mass
+	, const Eigen::Matrix3d & _J
+	, const Eigen::Vector3d & _c_o_g
+	, const Eigen::Vector3d & _r
+	, const unsigned char & _id)
+	:mass(_mass)
+	, J(_J)
+	, c_o_g(_c_o_g)
+	, r(_r)
+	, id(_id)
+{
+	;
+}
+
+
+MC::Cylinder::Cylinder(const double &_mass, const double & _r, const double &_h)
 	:
-	Block(m),
-	R(tr), h(th)
+	Block(_mass),
+	R(_r), h(_h)
 {
 	id = MC::ID_CYLINDER;
 	calc_m_o_i();
@@ -42,10 +73,10 @@ void MC::Cylinder::calc_m_o_i(){
 	J *= mass;
 }
 
-MC::Cuboid::Cuboid(double m, double tw, double th, double td)
+MC::Cuboid::Cuboid(const double &_mass, const double &_w, const double &_h, const double &_d)
 	:
-	Block(m),
-	w(tw), h(th), d(td)
+	Block(_mass),
+	w(_w), h(_h), d(_d)
 {
 	id = MC::ID_CUBOID;
 	calc_m_o_i();
@@ -104,11 +135,24 @@ void MC::StLComponent::set_path_to_stl(std::string p2stl){
 	path_to_stl = p2stl;
 }
 
-MC::MotorPlop::MotorPlop(double m, double tR, double th, double tc_t, double tc_q)
-	:Cylinder(m , tR, th),
-	c_t(tc_t), c_q(tc_q), w_m(0), Jr(Matrix3d::Zero())
+MC::MotorPlop::MotorPlop(double tc_t, double tc_q)
+	:c_t(tc_t)
+	, c_q(tc_q)
+	, w_m(0)
+	, Jr(Matrix3d::Zero())
 {
-	calc_m_o_i();
+	;
+}
+
+MC::MotorPlop::MotorPlop(
+	const double & _c_t, const double & _c_q
+	, const double & _w_m, const Eigen::Matrix3d & _Jr)
+	:c_t(_c_t)
+	, c_q(_c_q)
+	, w_m(_w_m)
+	, Jr(_Jr)
+{
+	;
 }
 
 Vector3d MC::MotorPlop::get_f(){
@@ -122,8 +166,8 @@ Vector3d MC::MotorPlop::get_l(){
 }
 
 MC::StLMotorPlop::StLMotorPlop(double &_c_t, double &_c_q, Matrix3d &_Jr)
-	:c_t(_c_t), c_q(_c_q), w_m(0), Jr(_Jr),
-	StLComponent()
+	:MotorPlop(_c_t, _c_q, 0, _Jr)
+	,StLComponent()
 {
 	;
 }
@@ -131,26 +175,16 @@ MC::StLMotorPlop::StLMotorPlop(double &_c_t, double &_c_q, Matrix3d &_Jr)
 MC::StLMotorPlop::StLMotorPlop(double &_c_t, double &_c_q, Matrix3d &_Jr,
 								const std::string &p2stl, const Eigen::Matrix3d &_J,
 								const Eigen::Vector3d &_c_o_g, const Eigen::Matrix3d &m_att)
-	:c_t(_c_t), c_q(_c_q), w_m(0), Jr(_Jr),
-	StLComponent(p2stl, _J, _c_o_g, m_att)
+	: MotorPlop(_c_t, _c_q, 0, _Jr)
+	, StLComponent(p2stl, _J, _c_o_g, m_att)
 {
 	;
 }
 
-Vector3d MC::StLMotorPlop::get_f(){
-	return Vector3d(0, 0, c_t * w_m * w_m);
-}
-Vector3d MC::StLMotorPlop::get_tau(){
-	return Vector3d(0, 0, -c_q * w_m * w_m);
-}
-Vector3d MC::StLMotorPlop::get_l(){
-	return (Jr * Vector3d(0, 0, w_m));
-}
 
 
 
 
 
 
-
-
+	 

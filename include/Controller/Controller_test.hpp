@@ -27,6 +27,8 @@ namespace Controller {
 
 	private:
 
+		void Set_w_m_All(float _wm);
+
 	};
 
 
