@@ -86,32 +86,101 @@ World & Supervisor::GetWorldHundler() {
 }
 
 void Supervisor::GenerateModel(MC::Core & _mc_core) {
-	Model mdl_component;
+
 	vec3 position_modelspace;
 	vec3 position_worldspace;
 	mat4 attitude;
 	mat4 attitude_model;
 	Eigen::Matrix3d att33;
 
+	
+	//Model mdl_component;
+	//position_worldspace = vec3(0.0f);
+	//attitude_model = rotate(mat4(1.0f), (float)(0.0), vec3(0.0, 0.0, 1.0));
+
+	//mdl_component.SetModelPositionWorldSpace(position_worldspace);
+	//mdl_component.SetModelAttitude(attitude_model);
+
+	//space_models.push_back(mdl_component);
+
+	Model mdl_component;
+	space_models.push_back(mdl_component);
+
 	position_worldspace = vec3(0.0f);
 	attitude_model = rotate(mat4(1.0f), (float)(0.0), vec3(0.0, 0.0, 1.0));
 
-	mdl_component.SetModelPositionWorldSpace(position_worldspace);
-	mdl_component.SetModelAttitude(attitude_model);
+	(space_models.back()).SetModelPositionWorldSpace(position_worldspace);
+	(space_models.back()).SetModelAttitude(attitude_model);
 
-	space_models.push_back(mdl_component);
+	//for (auto itr : _mc_core.components) {
+	//	if (itr->id != MC::ID_COMPONENT) {
+	//		//STLコンポーネントでなければ飛ばす
+	//		continue;
+	//	}
 
-	for (auto itr : _mc_core.components) {
-		if (itr->id != MC::ID_COMPONENT) {
+	//	//Object obj_componet;
+
+	//	////ダウンキャスト		  static_castだと怒られない
+	//	//MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
+	//	//obj_componet.LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
+
+	//	//position_modelspace.x = comp->GetPositionModelspace()(0);
+	//	//position_modelspace.y = comp->GetPositionModelspace()(1);
+	//	//position_modelspace.z = comp->GetPositionModelspace()(2);
+
+	//	//att33 = comp->GetAttitude();
+
+	//	//attitude = mat4(
+	//	//	att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
+	//	//	, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
+	//	//	, att33(0, 2), att33(1, 2), att33(2, 2), 0.0f
+	//	//	, 0.0f, 0.0f, 0.0f, 1.0f
+	//	//	);
+
+	//	//obj_componet.SetObjectPositionModelSpace(Utility::Convert_m_To_in(position_modelspace));
+	//	//obj_componet.SetObjectAttitude(attitude);
+	//	//space_objects.push_back(obj_componet);
+
+	//	Object obj_componet;
+	//	space_objects.push_back(obj_componet);
+	//	
+	//	//ダウンキャスト		  static_castだと怒られない
+	//	MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
+	//	(space_objects.back()).LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
+
+	//	position_modelspace.x = comp->GetPositionModelspace()(0);
+	//	position_modelspace.y = comp->GetPositionModelspace()(1);
+	//	position_modelspace.z = comp->GetPositionModelspace()(2);
+
+	//	att33 = comp->GetAttitude();
+
+	//	attitude = mat4(
+	//		att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
+	//		, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
+	//		, att33(0, 2), att33(1, 2), att33(2, 2), 0.0f
+	//		, 0.0f, 0.0f, 0.0f, 1.0f
+	//		);
+
+	//	(space_objects.back()).SetObjectPositionModelSpace(Utility::Convert_m_To_in(position_modelspace));
+	//	(space_objects.back()).SetObjectAttitude(attitude);
+	//}
+
+
+	//プッシュバックでOBJECTを追加する方法だとVBO等に与えられるIDがうまく割り振られなかった
+	//リサイズし、そこを設定する方針だとうまくいった
+
+
+	space_objects.resize(_mc_core.components.size());
+	for (int i = 0; i < _mc_core.components.size(); ++i) {
+		if (_mc_core.components[i]->id != MC::ID_COMPONENT) {
 			//STLコンポーネントでなければ飛ばす
+			//TODO　用意したシリンダ３Dモデル等をリスケールすることでSTLでないコンポーネントにも対応する
 			continue;
 		}
 
-		Object obj_componet;
-
 		//ダウンキャスト		  static_castだと怒られない
-		MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
-		obj_componet.LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
+		MC::StLComponent * comp = static_cast<MC::StLComponent *>(_mc_core.components[i]);
+		(space_objects[i]).LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
 
 		position_modelspace.x = comp->GetPositionModelspace()(0);
 		position_modelspace.y = comp->GetPositionModelspace()(1);
@@ -126,15 +195,24 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 			, 0.0f, 0.0f, 0.0f, 1.0f
 			);
 
-		obj_componet.SetObjectPositionModelSpace(position_modelspace);
-		obj_componet.SetObjectAttitude(attitude);
-		space_objects.push_back(obj_componet);
+		(space_objects[i]).SetObjectPositionModelSpace(Utility::Convert_m_To_in(position_modelspace));
+		(space_objects[i]).SetObjectAttitude(attitude);
 	}
 
+
+
 	//モデルにオブジェクトを追加
-	for (auto itr : space_objects) {
-		space_models[0].AddObject(&itr);
+	//イテレータをポインタとして渡したらうまくいかなかった
+
+	//これだとうまくポインタを渡せない　イテレータ自身のポインタということになってしまうのか？
+	//for (auto itr : space_objects) {
+	//	space_models[0].AddObject(&itr);
+	//}
+
+	for (int i = 0; i < space_objects.size(); ++i) {
+		space_models[0].AddObject(&space_objects[i]);
 	}
+
 
 	world.AddModel(&space_models[0]);
 

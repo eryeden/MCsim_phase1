@@ -64,6 +64,8 @@ int main() {
 	std::string p2body, p2motor;
 	p2body = "./../../OpenGL/models/Body.stl";
 	p2motor = "./../../OpenGL/models/bldcm.stl";
+	
+	std::string p2test = "./../../OpenGL/models/Body.stl";
 
 	c_t = 0;
 	c_q = 0;
@@ -83,7 +85,7 @@ int main() {
 	mass_plop0 = 0.054000;
 	position_plop0 = Vector3d(141.42, -141.42, 30.50);
 	position_cog_plop0 = Vector3d(0.00, 14.36, 0.00);
-	att_plop0 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
+	att_plop0 = Matrix3d::Identity();//AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
 	j_plop0 = Matrix3d::Zero();
 	j_plop0(0, 0) = 0.001104;
 	j_plop0(1, 1) = 0.001104;
@@ -189,12 +191,24 @@ int main() {
 		, position_plop3
 		);
 
+	MC::StLComponent objtest(
+		p2body
+		, mass_body
+		, j_body
+		, Matrix3d::Identity()
+		, Vector3d(0, 0, 0)
+		, Vector3d(0, 0, 0)
+		);
+
+
 	MC::Generator gene;
 	gene << &body;
 	gene << &plop0;
-	gene << &plop1;
-	gene << &plop2;
-	gene << &plop3;
+	//gene << &plop1;
+	//gene << &plop2;
+	//gene << &plop3;
+
+	//gene << &objtest;
 
 	gene.SetDt(0.001);
 	gene.set_initialstate_vb(Vector3d::Zero());
