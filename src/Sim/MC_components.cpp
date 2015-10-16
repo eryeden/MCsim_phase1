@@ -34,7 +34,7 @@ MC::Block::Block(
 	:mass(_mass)
 	, J(_J)
 	, c_o_g(_c_o_g)
-	, r(Vector3d(1.0f))
+	, r(Vector3d::Zero())
 	, id(ID_NONE)
 	, id_alternative_function(ID_AF_NONE)
 {
@@ -50,7 +50,7 @@ MC::Block::Block(
 	:mass(_mass)
 	, J(_J)
 	, c_o_g(_c_o_g)
-	, r(Vector3d(1.0f))
+	, r(Vector3d::Zero())
 	, id(_id)
 	, id_alternative_function(ID_AF_NONE)
 {
@@ -137,7 +137,7 @@ MC::StLComponent::StLComponent(
 	, const Eigen::Vector3d & _position_c_o_g_blockspace
 	, const Eigen::Vector3d & _position_modelspace)
 
-	: Block(_mass, _J, Vector3d(1.0f), ID_COMPONENT)
+	: Block(_mass, _J, Vector3d::Zero(), ID_COMPONENT)
 	, path_to_stl(_path_to_stl)
 	, mat_attitude(_m_attitude)
 	, position_c_o_g_blockspace(_position_c_o_g_blockspace)

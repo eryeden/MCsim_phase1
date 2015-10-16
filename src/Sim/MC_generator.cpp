@@ -24,7 +24,7 @@ void MC::Generator::Add(MC::Block * _blk) {
 		break;
 	case ID_AF_MOTOR_PLOP:
 		//クロスキャストというらしい　ダウンキャストしアップキャストする
-		mtrplps.push_back(dynamic_cast<MotorPlop *>(_blk));
+		mtrplps.push_back(reinterpret_cast<MotorPlop *>(_blk));
 		break;
 	default:
 		break;
@@ -36,19 +36,19 @@ void MC::Generator::operator<<(MC::Block * _block) {
 	Add(_block);
 }
 
-void MC::Generator::set_initialstate_vb(Vector3d &tx) {
+void MC::Generator::set_initialstate_vb(const Vector3d &tx) {
 	vb0 = tx;
 }
 
-void MC::Generator::set_initialstate_wb(Vector3d &tx) {
+void MC::Generator::set_initialstate_wb(const Vector3d &tx) {
 	wb0 = tx;
 }
 
-void MC::Generator::set_initialstate_xe(Vector3d &tx) {
+void MC::Generator::set_initialstate_xe(const Vector3d &tx) {
 	xe0 = tx;
 }
 
-void MC::Generator::set_initialstate_phie(Vector3d &tx) {
+void MC::Generator::set_initialstate_phie(const Vector3d &tx) {
 	phie0 = tx;
 }
 

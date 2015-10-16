@@ -53,13 +53,14 @@ namespace Space {
 			);
 
 		//World‚Ö‚ÌQÆ‚ğ•Ô‚·
-		const Space::World & GetWorldHundler();
+		Space::World & GetWorldHundler();
 
 
 		void GenerateModel(MC::Core & _mc_core);
 		//void SetModelParameter();
 
 
+		void RenderLoop();
 
 	private:
 		//OpenGLŠÖŒW‚ÍManager‚ª‚·‚×‚ÄŠÇ—‚·‚é
@@ -69,6 +70,8 @@ namespace Space {
 		std::vector<Space::Object> space_objects;
 
 		GLFWwindow * window;
+
+		void update_fps_counter(GLFWwindow * window);
 
 	};
 

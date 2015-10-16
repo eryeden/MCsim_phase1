@@ -69,12 +69,12 @@ int main() {
 	c_q = 0;
 
 	mass_body = 0.473932;
-	position_body = Vector3d(0.0f);
+	position_body = Vector3d::Zero();
 	position_cog_body = Vector3d(
 		-0.014185
 		, -0.000018
 		, 6.483679);
-	att_body = Matrix3d(1.0f);
+	att_body = Matrix3d::Identity();
 	j_body = Matrix3d::Zero();
 	j_body(0, 0) = 0.005991;
 	j_body(1, 1) = 0.005990;
@@ -189,8 +189,26 @@ int main() {
 		, position_plop3
 		);
 
+	MC::Generator gene;
+	gene << &body;
+	gene << &plop0;
+	gene << &plop1;
+	gene << &plop2;
+	gene << &plop3;
 
+	gene.SetDt(0.001);
+	gene.set_initialstate_vb(Vector3d::Zero());
+	gene.set_initialstate_wb(Vector3d::Zero());
+	gene.set_initialstate_xe(Vector3d::Zero());
+	gene.set_initialstate_phie(Vector3d::Zero());
 
+	MC::Core core = gene.generate_core();
+
+	Space::Supervisor sv;
+	//sv.Initialize(800, 600);
+	sv.GenerateModel(core);
+	sv.GetWorldHundler().SetPositionLight(glm::vec3(20, 50, 20));
+	sv.RenderLoop();
 
 
 }

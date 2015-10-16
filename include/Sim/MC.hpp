@@ -223,10 +223,10 @@ namespace MC { // NAMESPACE MC
 	public:
 		Generator();
 
-		void set_initialstate_vb(Eigen::Vector3d &tx);
-		void set_initialstate_wb(Eigen::Vector3d &tx);
-		void set_initialstate_xe(Eigen::Vector3d &tx);
-		void set_initialstate_phie(Eigen::Vector3d &tx);
+		void set_initialstate_vb(const Eigen::Vector3d &tx);
+		void set_initialstate_wb(const Eigen::Vector3d &tx);
+		void set_initialstate_xe(const Eigen::Vector3d &tx);
+		void set_initialstate_phie(const Eigen::Vector3d &tx);
 
 		void SetDt(double dt);
 

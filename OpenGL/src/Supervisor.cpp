@@ -81,7 +81,7 @@ bool Supervisor::Initialize(
 }
 
 //Worldへの参照を返す
-const World & Supervisor::GetWorldHundler() {
+World & Supervisor::GetWorldHundler() {
 	return world;
 }
 
@@ -109,9 +109,9 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 
 		Object obj_componet;
 
-		//アップキャスト
-		MC::StLComponent * comp = dynamic_cast<MC::StLComponent *>(itr);
-		obj_componet.LoadModel(comp->GetPathToModelFile());
+		//ダウンキャスト		  static_castだと怒られない
+		MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
+		obj_componet.LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
 
 		position_modelspace.x = comp->GetPositionModelspace()(0);
 		position_modelspace.y = comp->GetPositionModelspace()(1);
@@ -141,5 +141,44 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 
 }
 
+void Space::Supervisor::RenderLoop() {
+	while (!glfwWindowShouldClose(window)) {
+		update_fps_counter(window);
+
+		//world.Render();
+
+		world.RenderShadowMapping();
+
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+
+		if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_ESCAPE)) {
+			glfwSetWindowShouldClose(window, 1);
+		}
+		else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_X)) {
+
+		}
+		else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_C)) {
+
+		}
+
+	}
+}
+
+void Space::Supervisor::update_fps_counter(GLFWwindow * _window) {
+	static double previous_seconds = glfwGetTime();
+	static int frame_count;
+	double current_seconds = glfwGetTime();
+	double elapsed_seconds = current_seconds - previous_seconds;
+	if (elapsed_seconds > 0.25) {
+		previous_seconds = current_seconds;
+		double fps = (double)frame_count / elapsed_seconds;
+		char tmp[128];
+		sprintf(tmp, "opengl @ fps: %.2f", fps);
+		glfwSetWindowTitle(window, tmp);
+		frame_count = 0;
+	}
+	frame_count++;
+}
 
 
