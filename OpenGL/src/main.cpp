@@ -1,4 +1,9 @@
-
+/*
+Eigen, GLM, GLI : MIT license
+ASSIMP : BSD license
+GLFW : zlib/libpng license.
+GLEW : Modified BSD License, the Mesa 3-D License (MIT License), and the Khronos License (MIT License)
+*/
 
 
 //Widnowsの場合
@@ -234,7 +239,7 @@ int main() {
 	Space::Supervisor sv;
 	//sv.Initialize(800, 600);
 	sv.GenerateModel(core);
-	sv.GetWorldHundler().SetPositionLight(glm::vec3(20, 50, 20));
+	sv.GetWorldHundler().SetPositionLight(glm::vec3(0, 50, 0));
 	sv.RenderLoop();
 	//################### INTIALIZE OPENGL ##########################################################
 
