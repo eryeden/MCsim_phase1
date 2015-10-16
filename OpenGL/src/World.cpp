@@ -437,9 +437,11 @@ void World::RenderShadowMapping() {
 			);
 	}
 
+
+	//’n–Ê‚Ì•`‰æ###############################################################
 	glUseProgram(info.id_shader_shadowmapping2);
 
-	//Activate texture
+	////Activate texture
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture_depthmap);
 
@@ -458,7 +460,27 @@ void World::RenderShadowMapping() {
 
 	//gnd.Render();
 	//gnd.RenderGrid();
-	gnd.RenderChess();
+	gnd.RenderChess();	 
+	//’n–Ê‚Ì•`‰æ###############################################################
+
+	//Šî€Ž²‚Ì•`‰æ#############################################################
+	glUseProgram(info.id_shader_non_texture);
+	M = translate(mat4(1.0f), vec3(0, 0.09, 0));
+	MVP = Projection * View * M;
+
+	glUniformMatrix4fv(info.id_handler_uniform_MVP_shadowmapping
+		, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(info.id_handler_uniform_M_shadowmapping
+		, 1, GL_FALSE, &M[0][0]);
+	glUniformMatrix4fv(info.id_handler_uniform_V_shadowmapping
+		, 1, GL_FALSE, &View[0][0]);
+	glUniform3f(info.id_handler_uniform_lightposition_shadowmapping
+		, 1, 1, 1);
+
+	glUniform1i(info.id_handler_uniform_texture_depthmap_shadowmapping, 0);
+
+	models[0]->RenderAxis();
+	//Šî€Ž²‚Ì•`‰æ#############################################################
 
 #ifdef USE_POSTPROCESS
 	pp_fxaa->DeBind();

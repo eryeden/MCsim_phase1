@@ -253,6 +253,9 @@ Matrix12d Core::get_state_matrix(){
 	return Z;
 }
 
+Matrix3d Core::GetAttitudeMatrix() {
+	return mk_E_mat(x);
+}
 
 
 

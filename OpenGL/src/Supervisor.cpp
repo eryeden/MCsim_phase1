@@ -1,5 +1,7 @@
 #include <Supervisor.hpp>
 #include <Eigen/Dense>
+#include <random>
+#include <ctime>
 
 
 using namespace Space;
@@ -87,89 +89,37 @@ World & Supervisor::GetWorldHundler() {
 
 void Supervisor::GenerateModel(MC::Core & _mc_core) {
 
+	//いろ決定用乱数発生器
+	std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
+	std::uniform_int_distribution<int> dist(0, 999);
+
+
 	vec3 position_modelspace;
 	vec3 position_worldspace;
 	mat4 attitude;
 	mat4 attitude_model;
 	Eigen::Matrix3d att33;
 
-	
-	//Model mdl_component;
-	//position_worldspace = vec3(0.0f);
-	//attitude_model = rotate(mat4(1.0f), (float)(0.0), vec3(0.0, 0.0, 1.0));
-
-	//mdl_component.SetModelPositionWorldSpace(position_worldspace);
-	//mdl_component.SetModelAttitude(attitude_model);
-
-	//space_models.push_back(mdl_component);
-
 	Model mdl_component;
 	space_models.push_back(mdl_component);
 
-	position_worldspace = vec3(0.0f);
-	attitude_model = rotate(mat4(1.0f), (float)(0.0), vec3(0.0, 0.0, 1.0));
+	position_worldspace.x = _mc_core.x(6);
+	position_worldspace.y = _mc_core.x(7);
+	position_worldspace.z = _mc_core.x(8);
 
-	(space_models.back()).SetModelPositionWorldSpace(position_worldspace);
+	att33 = _mc_core.GetAttitudeMatrix();
+	attitude_model = mat4(
+		att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
+		, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
+		, att33(0, 2), att33(1, 2), att33(2, 2), 0.0f
+		, 0.0f, 0.0f, 0.0f, 1.0f
+		);
+
+	(space_models.back()).SetModelPositionWorldSpace(Utility::Convert_m_To_in(position_worldspace));
 	(space_models.back()).SetModelAttitude(attitude_model);
-
-	//for (auto itr : _mc_core.components) {
-	//	if (itr->id != MC::ID_COMPONENT) {
-	//		//STLコンポーネントでなければ飛ばす
-	//		continue;
-	//	}
-
-	//	//Object obj_componet;
-
-	//	////ダウンキャスト		  static_castだと怒られない
-	//	//MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
-	//	//obj_componet.LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
-
-	//	//position_modelspace.x = comp->GetPositionModelspace()(0);
-	//	//position_modelspace.y = comp->GetPositionModelspace()(1);
-	//	//position_modelspace.z = comp->GetPositionModelspace()(2);
-
-	//	//att33 = comp->GetAttitude();
-
-	//	//attitude = mat4(
-	//	//	att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
-	//	//	, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
-	//	//	, att33(0, 2), att33(1, 2), att33(2, 2), 0.0f
-	//	//	, 0.0f, 0.0f, 0.0f, 1.0f
-	//	//	);
-
-	//	//obj_componet.SetObjectPositionModelSpace(Utility::Convert_m_To_in(position_modelspace));
-	//	//obj_componet.SetObjectAttitude(attitude);
-	//	//space_objects.push_back(obj_componet);
-
-	//	Object obj_componet;
-	//	space_objects.push_back(obj_componet);
-	//	
-	//	//ダウンキャスト		  static_castだと怒られない
-	//	MC::StLComponent * comp = static_cast<MC::StLComponent *>(itr);
-	//	(space_objects.back()).LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
-
-	//	position_modelspace.x = comp->GetPositionModelspace()(0);
-	//	position_modelspace.y = comp->GetPositionModelspace()(1);
-	//	position_modelspace.z = comp->GetPositionModelspace()(2);
-
-	//	att33 = comp->GetAttitude();
-
-	//	attitude = mat4(
-	//		att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
-	//		, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
-	//		, att33(0, 2), att33(1, 2), att33(2, 2), 0.0f
-	//		, 0.0f, 0.0f, 0.0f, 1.0f
-	//		);
-
-	//	(space_objects.back()).SetObjectPositionModelSpace(Utility::Convert_m_To_in(position_modelspace));
-	//	(space_objects.back()).SetObjectAttitude(attitude);
-	//}
-
 
 	//プッシュバックでOBJECTを追加する方法だとVBO等に与えられるIDがうまく割り振られなかった
 	//リサイズし、そこを設定する方針だとうまくいった
-
-
 	space_objects.resize(_mc_core.components.size());
 	for (int i = 0; i < _mc_core.components.size(); ++i) {
 		if (_mc_core.components[i]->id != MC::ID_COMPONENT) {
@@ -180,7 +130,12 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 
 		//ダウンキャスト		  static_castだと怒られない
 		MC::StLComponent * comp = static_cast<MC::StLComponent *>(_mc_core.components[i]);
-		(space_objects[i]).LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
+		//(space_objects[i]).LoadModel(comp->GetPathToModelFile(), vec3(0.964, 0.714, 0));
+		//(space_objects[i]).LoadModel(comp->GetPathToModelFile()
+		//	, vec3(dist(rand2) / 1000.0, dist(rand2) / 1000.0, dist(rand2) / 1000.0));
+		(space_objects[i]).LoadModel(comp->GetPathToModelFile()
+			, vec3(comp->GetColor()(0), comp->GetColor()(1), comp->GetColor()(2)));
+
 
 		position_modelspace.x = comp->GetPositionModelspace()(0);
 		position_modelspace.y = comp->GetPositionModelspace()(1);

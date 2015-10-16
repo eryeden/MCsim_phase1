@@ -90,13 +90,25 @@ namespace MC { // NAMESPACE MC
 			, const Eigen::Vector3d & _position_c_o_g_blockspace
 			, const Eigen::Vector3d & _position_modelspace
 			);
+		//カラー情報
+		StLComponent(
+			const std::string & _path_to_stl
+			, const double & _mass
+			, const Eigen::Matrix3d & _J
+			, const Eigen::Matrix3d & _m_attitude
+			, const Eigen::Vector3d & _position_c_o_g_blockspace
+			, const Eigen::Vector3d & _position_modelspace
+			, const Eigen::Vector3d & _color
+			);
 
 		void set_attitude(Eigen::Matrix3d _m_att);
 		void set_path_to_stl(std::string _path_to_stl);
+		void SetColor(const Eigen::Vector3d & _color);
 
 		const std::string & GetPathToModelFile();
 		const Eigen::Vector3d & GetPositionModelspace();
 		const Eigen::Matrix3d & GetAttitude();
+		const Eigen::Vector3d & GetColor();
 
 	private:
 
@@ -107,6 +119,9 @@ namespace MC { // NAMESPACE MC
 		Eigen::Matrix3d mat_attitude;
 		//３Dモデルファイルへのパス
 		std::string path_to_stl;
+		//色情報
+		Eigen::Vector3d color;
+
 	};
 
 
@@ -161,6 +176,18 @@ namespace MC { // NAMESPACE MC
 			, const Eigen::Vector3d & _position_c_o_g_blockspace
 			, const Eigen::Vector3d & _position_modelspace
 			);
+		StLMotorPlop(
+			const double &_c_t
+			, const double &_c_q
+			, const Eigen::Matrix3d &_Jr
+			, const std::string & _path_to_stl
+			, const double & _mass
+			, const Eigen::Matrix3d & _J
+			, const Eigen::Matrix3d & _m_attitude
+			, const Eigen::Vector3d & _position_c_o_g_blockspace
+			, const Eigen::Vector3d & _position_modelspace
+			, const Eigen::Vector3d & _color
+			);
 		//モデルの重心位置を原点としたモデル空間におけるコンポーネントの重心位置
 		Eigen::Vector3d GetCOGPositionCOGModelspace();
 
@@ -205,6 +232,8 @@ namespace MC { // NAMESPACE MC
 
 		Vector12d get_state_vector(); //状態ベクトル
 		Matrix12d get_state_matrix(); //状態行列
+
+		Eigen::Matrix3d GetAttitudeMatrix(); //回転行列の取得
 
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成

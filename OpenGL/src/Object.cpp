@@ -226,9 +226,6 @@ void Model::Render(
 
 	mat4 MVP = _projection * _view * M;
 	glUseProgram(_info.id_shader_non_texture);
-
-
-
 	glUniformMatrix4fv(_info.id_handler_uniform_MVP_non_texture
 		, 1, GL_FALSE, &MVP[0][0]);
 	glUniformMatrix4fv(_info.id_handler_uniform_M_non_texture
@@ -1011,4 +1008,6 @@ void Ground::RenderChess() {
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
+
+	
 }

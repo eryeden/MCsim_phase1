@@ -51,6 +51,9 @@ using namespace Eigen;
 
 int main() {
 
+
+	//################### MC SETTINGS ###############################################################
+
 	Vector3d position_body, position_plop0, position_plop1, position_plop2, position_plop3;
 	Vector3d position_cog_body, position_cog_plop0, position_cog_plop1, position_cog_plop2, position_cog_plop3;
 	Matrix3d att_body, att_plop0, att_plop1, att_plop2, att_plop3;
@@ -85,7 +88,7 @@ int main() {
 	mass_plop0 = 0.054000;
 	position_plop0 = Vector3d(141.42, -141.42, 30.50);
 	position_cog_plop0 = Vector3d(0.00, 14.36, 0.00);
-	att_plop0 = Matrix3d::Identity();//AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
+	att_plop0 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(1.0f, 0.0f, 0.0f));
 	j_plop0 = Matrix3d::Zero();
 	j_plop0(0, 0) = 0.001104;
 	j_plop0(1, 1) = 0.001104;
@@ -96,9 +99,9 @@ int main() {
 	jr_plop0(2, 2) = 0.000021;
 
 	mass_plop1 = 0.054000;
-	position_plop1 = Vector3d(141.42, -141.42, 30.50);
+	position_plop1 = Vector3d(141.42, 141.42, 30.50);
 	position_cog_plop1 = Vector3d(0.00, 14.36, 0.00);
-	att_plop1 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
+	att_plop1 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(1.0f, 0.0f, 0.0f));
 	j_plop1 = Matrix3d::Zero();
 	j_plop1(0, 0) = 0.001104;
 	j_plop1(1, 1) = 0.001104;
@@ -109,9 +112,9 @@ int main() {
 	jr_plop1(2, 2) = 0.000021;
 
 	mass_plop2 = 0.054000;
-	position_plop2 = Vector3d(141.42, -141.42, 30.50);
+	position_plop2 = Vector3d(-141.42, 141.42, 30.50);
 	position_cog_plop2 = Vector3d(0.00, 14.36, 0.00);
-	att_plop2 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
+	att_plop2 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(1.0f, 0.0f, 0.0f));
 	j_plop2 = Matrix3d::Zero();
 	j_plop2(0, 0) = 0.001104;
 	j_plop2(1, 1) = 0.001104;
@@ -122,9 +125,9 @@ int main() {
 	jr_plop2(2, 2) = 0.000021;
 
 	mass_plop3 = 0.054000;
-	position_plop3 = Vector3d(141.42, -141.42, 30.50);
+	position_plop3 = Vector3d(-141.42, -141.42, 30.50);
 	position_cog_plop3 = Vector3d(0.00, 14.36, 0.00);
-	att_plop3 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(0.0f, 0.0f, 1.0f));
+	att_plop3 = AngleAxisd(-90.0 * M_PI / 180.0, Vector3d(1.0f, 0.0f, 0.0f));
 	j_plop3 = Matrix3d::Zero();
 	j_plop3(0, 0) = 0.001104;
 	j_plop3(1, 1) = 0.001104;
@@ -141,6 +144,7 @@ int main() {
 		, att_body
 		, position_cog_body
 		, position_body
+		, Vector3d(0.964, 0.714, 0)
 		);
 
 	MC::StLMotorPlop plop0(
@@ -153,6 +157,7 @@ int main() {
 		, att_plop0
 		, position_cog_plop0
 		, position_plop0
+		, Vector3d(0, 0.71, 0.101)
 		);
 
 	MC::StLMotorPlop plop1(
@@ -165,6 +170,7 @@ int main() {
 		, att_plop1
 		, position_cog_plop1
 		, position_plop1
+		, Vector3d(0, 0.71, 0.101)
 		);
 
 	MC::StLMotorPlop plop2(
@@ -177,6 +183,7 @@ int main() {
 		, att_plop2
 		, position_cog_plop2
 		, position_plop2
+		, Vector3d(0, 0.71, 0.101)
 		);
 
 	MC::StLMotorPlop plop3(
@@ -189,6 +196,7 @@ int main() {
 		, att_plop3
 		, position_cog_plop3
 		, position_plop3
+		, Vector3d(0, 0.71, 0.101)
 		);
 
 	MC::StLComponent objtest(
@@ -198,31 +206,37 @@ int main() {
 		, Matrix3d::Identity()
 		, Vector3d(0, 0, 0)
 		, Vector3d(0, 0, 0)
+		, Vector3d(0, 0.71, 0.101)
 		);
 
 
 	MC::Generator gene;
 	gene << &body;
 	gene << &plop0;
-	//gene << &plop1;
-	//gene << &plop2;
-	//gene << &plop3;
+	gene << &plop1;
+	gene << &plop2;
+	gene << &plop3;
 
 	//gene << &objtest;
 
 	gene.SetDt(0.001);
 	gene.set_initialstate_vb(Vector3d::Zero());
 	gene.set_initialstate_wb(Vector3d::Zero());
-	gene.set_initialstate_xe(Vector3d::Zero());
+	gene.set_initialstate_xe(Vector3d(0, 0, 100));
 	gene.set_initialstate_phie(Vector3d::Zero());
 
 	MC::Core core = gene.generate_core();
 
+
+	//################### MC SETTINGS ###############################################################
+
+	//################### INTIALIZE OPENGL ##########################################################
 	Space::Supervisor sv;
 	//sv.Initialize(800, 600);
 	sv.GenerateModel(core);
 	sv.GetWorldHundler().SetPositionLight(glm::vec3(20, 50, 20));
 	sv.RenderLoop();
+	//################### INTIALIZE OPENGL ##########################################################
 
 
 }

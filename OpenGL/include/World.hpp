@@ -227,6 +227,10 @@ namespace Space {
 		void SetModelPositionWorldSpace(const glm::vec3 & _position);
 		void SetModelAttitude(const glm::mat4 & _attitude);
 		std::vector<Object *> objects;
+
+		void RenderAxis();
+		void RenderAxisShort();
+		void InitializeAxis();
 	private:
 
 		glm::vec3 position_worldspace;
@@ -240,9 +244,7 @@ namespace Space {
 
 		void UpdateM();
 
-		void RenderAxis();
-		void RenderAxisShort();
-		void InitializeAxis();
+
 		GLuint vertex_buffer_axis;
 		GLuint vertex_buffer_axis_short;
 		GLuint color_buffer_axis;

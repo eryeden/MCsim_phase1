@@ -97,6 +97,7 @@ MC::StLComponent::StLComponent()
 	:
 	mat_attitude(Matrix3d::Zero()),
 	path_to_stl("")
+	, color(Vector3d::Zero())
 {
 	;
 }
@@ -104,7 +105,8 @@ MC::StLComponent::StLComponent()
 MC::StLComponent::StLComponent(const std::string &p2stl)
 	:
 	mat_attitude(Matrix3d::Zero()),
-	path_to_stl(p2stl)
+	path_to_stl(p2stl)	
+	, color(Vector3d::Zero())
 {
 	;
 }
@@ -114,6 +116,7 @@ MC::StLComponent::StLComponent(const std::string &p2stl, const Eigen::Matrix3d &
 	:
 	mat_attitude(Matrix3d::Zero()),
 	path_to_stl(p2stl)
+	, color(Vector3d::Zero())
 {
 	J = _J;
 	c_o_g = _c_o_g;
@@ -124,6 +127,7 @@ MC::StLComponent::StLComponent(const std::string &p2stl, const Eigen::Matrix3d &
 	:
 	mat_attitude(m_att),
 	path_to_stl(p2stl)
+	, color(Vector3d::Zero())
 {
 	J = _J;
 	c_o_g = _c_o_g;
@@ -142,6 +146,28 @@ MC::StLComponent::StLComponent(
 	, mat_attitude(_m_attitude)
 	, position_c_o_g_blockspace(_position_c_o_g_blockspace)
 	, position_modelspace(_position_modelspace)
+	, color(Vector3d::Zero())
+
+{
+	//モデル空間における重心位置を計算
+	c_o_g = position_modelspace + mat_attitude * position_c_o_g_blockspace;
+}
+
+MC::StLComponent::StLComponent(
+	const std::string & _path_to_stl
+	, const double & _mass
+	, const Eigen::Matrix3d & _J
+	, const Eigen::Matrix3d & _m_attitude
+	, const Eigen::Vector3d & _position_c_o_g_blockspace
+	, const Eigen::Vector3d & _position_modelspace
+	, const Eigen::Vector3d & _color)
+
+	: Block(_mass, _J, Vector3d::Zero(), ID_COMPONENT)
+	, path_to_stl(_path_to_stl)
+	, mat_attitude(_m_attitude)
+	, position_c_o_g_blockspace(_position_c_o_g_blockspace)
+	, position_modelspace(_position_modelspace)
+	, color(_color)
 
 {
 	//モデル空間における重心位置を計算
@@ -157,6 +183,10 @@ void MC::StLComponent::set_path_to_stl(std::string _path_to_stl) {
 	path_to_stl = _path_to_stl;
 }
 
+void MC::StLComponent::SetColor(const Vector3d & _color) {
+	color = _color;
+}
+
 const std::string & MC::StLComponent::GetPathToModelFile() {
 	return path_to_stl;
 }
@@ -167,6 +197,10 @@ const Vector3d & MC::StLComponent::GetPositionModelspace() {
 
 const Matrix3d & MC::StLComponent::GetAttitude() {
 	return mat_attitude;
+}
+
+const Vector3d & MC::StLComponent::GetColor() {
+	return color;
 }
 
 MC::MotorPlop::MotorPlop(double tc_t, double tc_q)
@@ -232,6 +266,30 @@ MC::StLMotorPlop::StLMotorPlop(
 		, _m_attitude
 		, _position_c_o_g_blockspace
 		, _position_modelspace
+		)
+{
+	id_alternative_function = ID_AF_MOTOR_PLOP;
+}
+
+MC::StLMotorPlop::StLMotorPlop(
+	const double &_c_t
+	, const double &_c_q
+	, const Eigen::Matrix3d &_Jr
+	, const std::string & _path_to_stl
+	, const double & _mass
+	, const Eigen::Matrix3d & _J
+	, const Eigen::Matrix3d & _m_attitude
+	, const Eigen::Vector3d & _position_c_o_g_blockspace
+	, const Eigen::Vector3d & _position_modelspace
+	, const Eigen::Vector3d & _color
+	)
+	: MotorPlop(_c_t, _c_q, 0, _Jr)
+	, StLComponent(
+		_path_to_stl, _mass, _J
+		, _m_attitude
+		, _position_c_o_g_blockspace
+		, _position_modelspace
+		, _color
 		)
 {
 	id_alternative_function = ID_AF_MOTOR_PLOP;
