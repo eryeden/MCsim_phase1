@@ -47,6 +47,7 @@ GLEW : Modified BSD License, the Mesa 3-D License (MIT License), and the Khronos
 #include <Supervisor.hpp>
 #include <Sim/MC.hpp>
 #include <Controller/Controller_test.hpp>
+#include <Manager/Manager.hpp>
 
 #include <Eigen/Dense>
 using namespace Eigen;
@@ -231,17 +232,37 @@ int main() {
 	gene.set_initialstate_phie(Vector3d::Zero());
 
 	MC::Core core = gene.generate_core();
-
-
 	//################### MC SETTINGS ###############################################################
 
-	//################### INTIALIZE OPENGL ##########################################################
-	Space::Supervisor sv;
-	//sv.Initialize(800, 600);
-	sv.GenerateModel(core);
-	sv.GetWorldHundler().SetPositionLight(glm::vec3(0, 50, 0));
-	sv.RenderLoop();
-	//################### INTIALIZE OPENGL ##########################################################
+	//################### CONTROLLER SETTIGNS #######################################################
+
+	Controller::Controller_test ct(core);
+	ct.Initialize();
+
+	//################### CONTROLLER SETTIGNS #######################################################
+
+	////################### INITIALIZE OPENGL ##########################################################
+	//Space::Supervisor sv;
+	////sv.Initialize(800, 600);
+	//sv.GenerateModel(core);
+	//sv.GetWorldHandler().SetPositionLight(glm::vec3(0, 50, 0));
+	//sv.RenderLoop();
+	////################### INITIALIZE OPENGL ##########################################################
+
+	//################### MANAGER SETTINGS ###########################################################
+
+	SimulationManager::Manager mngr(ct, core);
+
+	//################### MANAGER SETTINGS ###########################################################
+
+	//################### LOOP ##################################
+
+	while (!mngr.Update()) {
+		;
+	}
+
+	//################### LOOP ##################################
+
 
 
 }

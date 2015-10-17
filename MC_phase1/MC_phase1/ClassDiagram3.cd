@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MdlImporter" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAEAQgBAAAAAABAAAAACAAACBIAAADAAAABQAAI=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\Importer.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PostProcessingFXAA" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAgAAQQAQRACAIIAgAAAAEABDBECGIBABAM=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\PostProcessing.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::Supervisor" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAAAAQEQAAAEAAAAAIAEQAgAAIAhAABAIAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\Supervisor.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::Utility" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAABAAAAAAAIAAAAAAAAAQ=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::Object" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAIJAABAEIAQCAAAARECAAIAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::Model" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACEQCAIFAAAAFYAASAAAohgAAEIABAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::Ground" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAASAJCAAAAACAAAIQAABAABACAIAAFCA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Space::World" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQCKgICBAAgQSASQEBCACgQAQHBCFJQHEQEABYhgA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::Block" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAAAQAAAAAAABAAAAAAAAAAAAAAAABAAABAgA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::Cylinder" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAQAQAAAAAAQA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::Cuboid" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEQAgAAAAAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::StLComponent" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAACAAAAJEgQAAAAAAAQAAAAAAAAgCAAAgAAgAAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::MotorPlop" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAQAAAQAAGAAAAAhAAAAAQAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::CylinderMotorPlop" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::StLMotorPlop" Collapsed="true">
+    <Position X="5.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::Core" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQBQABAAqACAAAAADgAAAAAIAAAAAQAkZAEAAnADE=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MC::Generator" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAkAAIAQAGAACACAAAAACAAAAAAQAAQAgAAECAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Sim\MC.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller::Base" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAAAAAAAAIAAAAAAAAEAAAAAAQAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Controller\Base.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller::Controller_test" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAQAAAgAAAAAAAAAAAAAAEAAAAAAQAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Controller\Controller_test.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SimulationManager::Manager" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAgAAAAAAAAAAAAAAAgBAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\include\Manager\Manager.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Space::InfoShader" Collapsed="true">
+    <Position X="10.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkQCCAICAAEIACAAAAICQAgAAAABCBBAAYAAAAAAgA=</HashCode>
+      <FileName>C:\Users\ery\Documents\local_devel\MCsim_phase1\OpenGL\include\World.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

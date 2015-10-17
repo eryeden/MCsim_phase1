@@ -154,8 +154,10 @@ Vector3d Core::mk_u2(){
 	}
 #else
 	for (auto itr = mtrplps.begin(); itr != mtrplps.end(); ++itr){
+		//u2 +=
+		//	((*itr)->GetCOGPositionCOGModelspace().cross((*itr)->get_f())) + (*itr)->get_tau();
 		u2 +=
-			((*itr)->GetCOGPositionCOGModelspace().cross((*itr)->get_f())) + (*itr)->get_tau();
+			dynamic_cast<Block *>(*itr)->r.cross((*itr)->get_f()) + (*itr)->get_tau();
 	}
 #endif
 	return Jb_inv * u2;

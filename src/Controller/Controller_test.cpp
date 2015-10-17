@@ -1,5 +1,4 @@
 #include <Controller/Controller_test.hpp>
-#include <thread>
 
 using namespace Controller;
 
@@ -7,6 +6,10 @@ Controller_test::Controller_test(MC::Core & _mc_core)
 	:Base(_mc_core)
 {
 	;
+}
+
+Controller_test::~Controller_test() {
+	
 }
 
 void Controller_test::Initialize() {
@@ -30,5 +33,6 @@ void Controller_test::Set_w_m_All(float _wm) {
 
 
 }
+
 
 

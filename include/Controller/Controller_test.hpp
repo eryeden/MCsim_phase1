@@ -18,7 +18,7 @@ namespace Controller {
 	public:
 		Controller_test(MC::Core & _mc_core);
 
-		virtual ~Controller_test() = 0;
+		~Controller_test();
 
 
 		void Initialize();

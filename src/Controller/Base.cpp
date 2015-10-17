@@ -6,6 +6,10 @@ Controller::Base::Base(MC::Core & _core)
 	;
 }
 
+Controller::Base::~Base() {
+	;
+}
+
 
 
 

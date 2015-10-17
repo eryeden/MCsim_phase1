@@ -11,7 +11,7 @@
 
 #include <Sim/MC.hpp>
 #include <Controller/Base.hpp>
-#include <World.hpp>
+#include <Supervisor.hpp>
 
 
 namespace SimulationManager {
@@ -27,18 +27,16 @@ namespace SimulationManager {
 			, MC::Core & _mc_core
 			);
 
-		virtual ~Manager() = 0;
+		//virtual ~Manager() = 0;
+
+		bool Update();
 
 
 	private:
 
 		Controller::Base & controller_base;
 		MC::Core & mc_core;
-
-
-
-		void InitializeOpenGL();
-		void GenerateWorld();
+		Space::Supervisor gl_sv;
 
 
 	protected:

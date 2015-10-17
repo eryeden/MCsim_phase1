@@ -53,14 +53,21 @@ namespace Space {
 			);
 
 		//World‚Ö‚ÌQÆ‚ğ•Ô‚·
-		Space::World & GetWorldHundler();
+		Space::World & GetWorldHandler();
 
 
 		void GenerateModel(MC::Core & _mc_core);
-		//void SetModelParameter();
-
+		//void SetModelParameter
 
 		void RenderLoop();
+		void Render();
+
+		const GLFWwindow * GetWindowHandler();
+
+		static const glm::vec3 & ConvertVector3dToVec3(Eigen::Vector3d _eigen_vector3d);
+		static const glm::mat4 & ConvertMatrix3dToMat4(Eigen::Matrix3d _eigen_matrix3d);
+
+
 
 	private:
 		//OpenGLŠÖŒW‚ÍManager‚ª‚·‚×‚ÄŠÇ—‚·‚é

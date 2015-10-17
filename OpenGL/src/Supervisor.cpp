@@ -29,11 +29,7 @@ bool Supervisor::Initialize(
 		return false;
 	}
 
-	int w, h;
-	w = 800;
-	h = 600;
-
-	window = glfwCreateWindow(w, h, "MCS",
+	window = glfwCreateWindow(_width_window, _height_window, "MCS",
 		NULL, NULL);
 	if (!window) {
 		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
@@ -83,7 +79,7 @@ bool Supervisor::Initialize(
 }
 
 //Worldへの参照を返す
-World & Supervisor::GetWorldHundler() {
+World & Supervisor::GetWorldHandler() {
 	return world;
 }
 
@@ -198,6 +194,12 @@ void Space::Supervisor::RenderLoop() {
 	}
 }
 
+void Space::Supervisor::Render() {
+	update_fps_counter(window);
+	world.RenderShadowMapping();
+	glfwSwapBuffers(window);
+}
+
 void Space::Supervisor::update_fps_counter(GLFWwindow * _window) {
 	static double previous_seconds = glfwGetTime();
 	static int frame_count;
@@ -207,11 +209,35 @@ void Space::Supervisor::update_fps_counter(GLFWwindow * _window) {
 		previous_seconds = current_seconds;
 		double fps = (double)frame_count / elapsed_seconds;
 		char tmp[128];
-		sprintf(tmp, "opengl @ fps: %.2f", fps);
+		sprintf(tmp, "MCS @ fps: %.2f", fps);
 		glfwSetWindowTitle(window, tmp);
 		frame_count = 0;
 	}
 	frame_count++;
 }
 
+const GLFWwindow * Space::Supervisor::GetWindowHandler() {
+	return window;
+}
 
+
+//######## utilities ####################
+
+const glm::vec3 & Space::Supervisor::ConvertVector3dToVec3(Eigen::Vector3d _eigen_vector3d) {
+	return vec3(
+		_eigen_vector3d(0)
+		, _eigen_vector3d(1)
+		, _eigen_vector3d(2)
+		);
+}
+
+const glm::mat4 & Space::Supervisor::ConvertMatrix3dToMat4(Eigen::Matrix3d _eigen_matrix3d) {
+	return mat4(
+		_eigen_matrix3d(0, 0), _eigen_matrix3d(1, 0), _eigen_matrix3d(2, 0), 0.0f
+		, _eigen_matrix3d(0, 1), _eigen_matrix3d(1, 1), _eigen_matrix3d(2, 1), 0.0f
+		, _eigen_matrix3d(0, 2), _eigen_matrix3d(1, 2), _eigen_matrix3d(2, 2), 0.0f
+		, 0.0f, 0.0f, 0.0f, 1.0f
+		);
+}
+
+//######## utilities ####################
