@@ -159,6 +159,12 @@ Vector3d Core::mk_u2(){
 		u2 +=
 			dynamic_cast<Block *>(*itr)->r.cross((*itr)->get_f()) + (*itr)->get_tau();
 	}
+
+	//for (int i = 0; i < mtrplps.size(); ++i) {
+	//	u2 +=
+	//		dynamic_cast<Block *>(mtrplps[i])->r.cross(mtrplps[i]->get_f()) + mtrplps[i]->get_tau();
+	//}
+
 #endif
 	return Jb_inv * u2;
 }

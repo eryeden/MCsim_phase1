@@ -225,9 +225,9 @@ int main() {
 
 	//gene << &objtest;
 
-	gene.SetDt(0.001);
-	gene.set_initialstate_vb(Vector3d::Zero());
-	gene.set_initialstate_wb(Vector3d::Zero());
+	gene.SetDt(0.0167);
+	gene.set_initialstate_vb(Vector3d(0, 0, 100));
+	gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
 	gene.set_initialstate_xe(Vector3d(0, 0, 100));
 	gene.set_initialstate_phie(Vector3d::Zero());
 
@@ -238,6 +238,7 @@ int main() {
 
 	Controller::Controller_test ct(core);
 	ct.Initialize();
+	ct.Setw(Vector3d(0.0, 0.0, 1));
 
 	//################### CONTROLLER SETTIGNS #######################################################
 

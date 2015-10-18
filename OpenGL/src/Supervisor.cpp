@@ -220,6 +220,10 @@ const GLFWwindow * Space::Supervisor::GetWindowHandler() {
 	return window;
 }
 
+Model & Supervisor::GetModelHandler() {
+	return space_models[0];
+}
+
 
 //######## utilities ####################
 

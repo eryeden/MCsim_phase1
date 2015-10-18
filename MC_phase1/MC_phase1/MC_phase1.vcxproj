@@ -71,6 +71,7 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="ClassDiagram3.cd" />
+    <None Include="ClassDiagram4.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2C6D504C-F38F-4CB9-B435-009F9C5D37F1}</ProjectGuid>

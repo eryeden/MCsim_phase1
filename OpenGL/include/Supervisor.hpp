@@ -67,7 +67,7 @@ namespace Space {
 		static const glm::vec3 & ConvertVector3dToVec3(Eigen::Vector3d _eigen_vector3d);
 		static const glm::mat4 & ConvertMatrix3dToMat4(Eigen::Matrix3d _eigen_matrix3d);
 
-
+		Space::Model & GetModelHandler();
 
 	private:
 		//OpenGLŠÖŒW‚ÍManager‚ª‚·‚×‚ÄŠÇ—‚·‚é

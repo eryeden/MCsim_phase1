@@ -24,7 +24,7 @@ void MC::Generator::Add(MC::Block * _blk) {
 		break;
 	case ID_AF_MOTOR_PLOP:
 		//クロスキャストというらしい　ダウンキャストしアップキャストする
-		mtrplps.push_back(reinterpret_cast<MotorPlop *>(_blk));
+		mtrplps.push_back(static_cast<StLMotorPlop *>(_blk));
 		break;
 	default:
 		break;
