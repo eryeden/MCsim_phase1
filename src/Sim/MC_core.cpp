@@ -307,7 +307,40 @@ Matrix3d Core::GetAttitudeMatrix() {
 }
 
 //#############################################クォータニオン関係################################################
+//1ステップ前進積分　RK4
+void Core::update_q() {
+	Vector13d tx = Vector13d::Zero();
 
+	k1q = mk_Z(xq) * xq + mk_u(xq);
+	tx = xq + dt2 * k1q;
+
+	k2q = mk_Z(tx) * tx + mk_u(tx);
+	tx = xq + dt2 * k2q;
+
+	k3q = mk_Z(tx) * tx + mk_u(tx);
+	tx = xq + dt * k3q;
+
+	Zq = mk_Z(tx);
+	k4q = Zq * tx + mk_u(tx);
+
+	xq_prev = xq;
+	xq = xq + dt6 * (k1q + 2.0 * (k2q + k3q) + k4q);
+
+	NormalizeQuotanion(xq);
+	NormalizeQuotanion(xq_prev);
+}
+
+Eigen::Matrix3d Core::GetAttitudeMatrix_q() {
+	return mk_E_mat(xq);
+}
+
+Vector13d Core::get_state_vector_q() {
+	return xq;
+}
+
+Matrix13d Core::get_state_matrix_q() {
+	return Zq;
+}
 
 Matrix3d Core::MakeDCMfromQuotanion(const Vector4d & _q) {
 	double q1, q2, q3, q4, q11, q22, q33, q44;
