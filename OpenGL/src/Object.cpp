@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include <iostream>
 
 using namespace Space;
 using namespace glm;
@@ -184,6 +185,7 @@ Model::Model() {
 
 	UpdateM();
 	InitializeAxis();
+	InitializeVRenderer();
 }
 
 void Model::UpdateM() {
@@ -195,7 +197,9 @@ void Model::AddObject(Space::Object * _object) {
 }
 
 void Model::SetModelPositionWorldSpace(const glm::vec3 & _position) {
+	position_worldspace = _position;
 	M_translate = translate(mat4(1.0f), Utility::ConvertWorldToGLSpace(_position));
+	
 	M = M_translate * M_attitude;
 }
 
@@ -286,6 +290,56 @@ void Model::RenderShadowMapping(
 	RenderAxis();
 }
 
+void Model::RenderShadowMapping(
+	const struct InfoShader & _info
+	, const glm::mat4 & _projection
+	, const glm::mat4 & _view
+	, const glm::mat4 & _Mattrix_worldspace_to_lightspace_shadowmapping
+	, const glm::vec3 & _light_position
+	, const GLfloat & _light_power
+	, const GLuint & _texture_depthmap
+	, const glm::vec3 & _v
+	) {
+	for (size_t i = 0; i < objects.size(); ++i) {
+		objects[i]->RenderShadowMapping(
+			_info
+			, _projection
+			, _view
+			, M
+			, _Mattrix_worldspace_to_lightspace_shadowmapping
+			, _light_position
+			, _light_power
+			, _texture_depthmap
+			);
+		RenderAxisShort();
+	}
+
+	glUseProgram(_info.id_shader_shadowmapping2);
+
+	//Activate texture
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, _texture_depthmap);
+
+	mat4 MVP = _projection * _view * M;
+	glUseProgram(_info.id_shader_non_texture);
+	glUniformMatrix4fv(_info.id_handler_uniform_MVP_non_texture
+		, 1, GL_FALSE, &MVP[0][0]);
+	glUniformMatrix4fv(_info.id_handler_uniform_M_non_texture
+		, 1, GL_FALSE, &M[0][0]);
+	glUniformMatrix4fv(_info.id_handler_uniform_V_non_texture
+		, 1, GL_FALSE, &_view[0][0]);
+	glUniform3f(_info.id_handler_uniform_lightposition_non_texture
+		, _light_position.x, _light_position.y, _light_position.z);
+	glUniformMatrix4fv(_info.id_handler_uniform_Mattrix_worldspace_to_lightspace_shadowmapping
+		, 1, GL_FALSE, &_Mattrix_worldspace_to_lightspace_shadowmapping[0][0]);
+
+	glUniform1i(_info.id_handler_uniform_texture_depthmap_shadowmapping, 0);
+
+	RenderAxis();
+	RenderVector(_v);
+
+}
+
 
 void Model::RenderDepth(
 	const struct InfoShader & _info
@@ -299,6 +353,10 @@ void Model::RenderDepth(
 			, M
 			);
 	}
+}
+
+const vec3 & Model::GetPosition() {
+	return position_worldspace;
 }
 
 void Model::InitializeAxis() {
@@ -447,6 +505,95 @@ void Model::RenderAxisShort() {
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 
+}
+
+void Model::InitializeVRenderer() {
+	GLfloat vertices_vector[] = {
+		0.0, 0.0, 0.0
+		, 3.0, 0.0, 0.0
+	};
+
+	GLfloat colors_vector[] = {
+		1.0, 0.0, 0.0
+		, 1.0, 0.0, 0.0
+	};
+
+	GLfloat normal_vector[] = {
+		0.0, 0.0, 0.0
+		, 0.0, 0.0, 0.0
+	};
+
+	glGenBuffers(1, &vertex_buffer_vector);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_vector);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 6
+		, &vertices_vector
+		, GL_DYNAMIC_DRAW);
+
+	glGenBuffers(1, &normal_buffer_vector);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_buffer_vector);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 6
+		, normal_vector
+		, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &color_buffer_vector);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer_vector);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 6
+		, colors_vector
+		, GL_STATIC_DRAW);
+}
+
+void Model::RenderVector(const glm::vec3 _v) {
+
+	GLfloat vertices_vector[] = {
+		0.0, 0.0, 0.0
+		, _v[0], _v[1], _v[2]
+	};
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_vector);
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(GLfloat) * 6
+		, &vertices_vector
+		, GL_DYNAMIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_vector);
+	glVertexAttribPointer(
+		0
+		, 3
+		, GL_FLOAT
+		, GL_FALSE
+		, 0
+		, (void *)0
+		);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer_vector);
+	glVertexAttribPointer(
+		1
+		, 3
+		, GL_FLOAT
+		, GL_FALSE
+		, 0
+		, (void *)0
+		);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_buffer_vector);
+	glVertexAttribPointer(
+		2
+		, 3
+		, GL_FLOAT
+		, GL_FALSE
+		, 0
+		, (void *)0
+		);
+
+	glDrawArrays(GL_LINE_STRIP, 0, 3 * 2);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 }
 
 

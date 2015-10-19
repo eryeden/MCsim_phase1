@@ -216,6 +216,18 @@ namespace Space {
 			, const GLuint & _texture_depthmap
 			);
 
+		//ForShadowMapping
+		void RenderShadowMapping(
+			const struct InfoShader & _info
+			, const glm::mat4 & _projection
+			, const glm::mat4 & _view
+			, const glm::mat4 & _Mattrix_worldspace_to_lightspace_shadowmapping
+			, const glm::vec3 & _light_position
+			, const GLfloat & _light_power
+			, const GLuint & _texture_depthmap
+			, const glm::vec3 & _v
+			);
+
 		//DepthMapŽæ“¾ŽžƒŒƒ“ƒ_ƒŠƒ“ƒO
 		void RenderDepth(
 			const struct InfoShader & _info
@@ -231,6 +243,11 @@ namespace Space {
 		void RenderAxis();
 		void RenderAxisShort();
 		void InitializeAxis();
+
+		void InitializeVRenderer();
+		void RenderVector(const glm::vec3 _v);
+
+		const glm::vec3 & GetPosition();
 	private:
 
 		glm::vec3 position_worldspace;
@@ -239,6 +256,8 @@ namespace Space {
 		glm::mat4 M;
 		glm::mat4 M_translate;
 		glm::mat4 M_attitude;
+
+		
 
 
 
@@ -249,6 +268,10 @@ namespace Space {
 		GLuint vertex_buffer_axis_short;
 		GLuint color_buffer_axis;
 		GLuint normal_buffer_axis;
+
+		GLuint vertex_buffer_vector;
+		GLuint color_buffer_vector;
+		GLuint normal_buffer_vector;
 	};
 
 	class Ground {
@@ -336,6 +359,8 @@ namespace Space {
 
 		GLuint GetPPShader_pass() { return info.id_shader_postprocess_passthrough; }
 		GLuint GetPPShader_filter() { return info.id_shader_postprocess_filter; }
+
+		glm::vec3 v_d;
 
 	private:
 

@@ -56,7 +56,7 @@ void World::Initialize(GLFWwindow * _window) {
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
 
-	position_camera = vec3(10.0f, 10.0f, 10.0f);
+	position_camera = vec3(-20.0f, 40.0f, -20.0f);
 	position_light = vec3(0.0f, 0.0f, 5.0f);
 
 	glfwGetWindowSize(window, &width, &height);
@@ -105,7 +105,7 @@ void World::InitShadowMapping() {
 
 	GLfloat near_plane = 0.1f, far_plane = 1000.0f;	   //‰“‚¢–Ê‚ª¬‚³‚¢‚Æ‚»‚ê‚æ‚è‰“‚­‚É‰e‚Í‚Å‚«‚È‚¢‚Ì‚Å’ˆÓ
 	Matrix_lightprojection =
-		ortho(-10.0f, 10.0f, -10.0f, 10.0f
+		ortho(-80.0f, 80.0f, -80.0f, 80.0f
 			, near_plane, far_plane);
 	Matrix_lightview = lookAt(position_light, vec3(0.0f), vec3(0.0f, 0.0f, 1.0f));
 	Matrix_worldspace_to_lightspace = Matrix_lightprojection * Matrix_lightview;
@@ -366,7 +366,8 @@ void World::Render() {
 void World::RenderShadowMapping() {
 	glfwGetWindowSize(window, &width, &height);
 
-	computeMatricesFromInputs(window);
+	//computeMatricesFromInputs(window);
+
    
 	mat4 M = mat4(
 		1.0f, 0.0f, 0.0f, 0.0f
@@ -420,12 +421,29 @@ void World::RenderShadowMapping() {
 	//View = lookAt(position_camera
 	//	, vec3(0, 0, 0)
 	//	, vec3(0, 0, 1));
-	View = getViewMatrix();
+	//View = getViewMatrix();
+	vec3 pos = vec3(
+		models[0]->GetPosition()[1]
+		, models[0]->GetPosition()[2]
+		, models[0]->GetPosition()[0]
+		);
+	View = lookAt(position_camera, pos, vec3(0, 1, 0));
+
 	glViewport(0, 0, width, height);
 	glClearColor(0.8, 0.8, 0.8, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (size_t i = 0; i < models.size(); ++i) {
+		//models[i]->RenderShadowMapping(
+		//	info
+		//	, Projection
+		//	, View
+		//	, Matrix_worldspace_to_lightspace
+		//	, position_light
+		//	, power_light
+		//	, texture_depthmap
+		//	);
+
 		models[i]->RenderShadowMapping(
 			info
 			, Projection
@@ -434,6 +452,7 @@ void World::RenderShadowMapping() {
 			, position_light
 			, power_light
 			, texture_depthmap
+			, v_d
 			);
 	}
 

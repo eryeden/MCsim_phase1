@@ -287,10 +287,10 @@ namespace MC { // NAMESPACE MC
 		Eigen::Vector3d mk_u11(const Vector13d &_x); //èÛë‘ÉxÉNÉgÉãÇ…ÇÊÇËU11Çê∂ê¨
 		Vector13d mk_u(const Vector13d &_x); //Uê∂ê¨ U = t[U11 + U12, U2, 0, 0]
 
-		const Eigen::Vector3d & GetVelocityBodyspace(const Vector13d & _x);
-		const Eigen::Vector3d & GetAngularVelocityBodyspace(const Vector13d & _x);
-		const Eigen::Vector3d & GetPositionEarthspace(const Vector13d & _x);
-		const Eigen::Vector4d & GetQuotanion(const Vector13d & _x);
+		Eigen::Vector3d GetVelocityBodyspace(const Vector13d & _x);
+		Eigen::Vector3d GetAngularVelocityBodyspace(const Vector13d & _x);
+		Eigen::Vector3d GetPositionEarthspace(const Vector13d & _x);
+		Eigen::Vector4d GetQuotanion(const Vector13d & _x);
 
 		void SetVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_v);
 		void SetAngularVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_w);
@@ -312,10 +312,16 @@ namespace MC { // NAMESPACE MC
 		void set_initialstate_xe(const Eigen::Vector3d &tx);
 		void set_initialstate_phie(const Eigen::Vector3d &tx);
 
+		void SetInitialVelocityBodyspace(const Eigen::Vector3d & _v);
+		void SetInitialAngularVelocityBodyspace(const Eigen::Vector3d & _w);
+		void SetInitialPositionEarthspace(const Eigen::Vector3d & _p);
+		void SetInitialQuotanion(const Eigen::Vector4d & _q);
+
 		void SetDt(double dt);
 
 
 		MC::Core generate_core();
+		MC::Core GenerateCore_q();
 
 		void Add(MC::Block * _blk);
 		void operator<<(MC::Block * _block);
@@ -323,6 +329,7 @@ namespace MC { // NAMESPACE MC
 	private:
 
 		Eigen::Vector3d vb0, wb0, xe0, phie0;
+		Eigen::Vector4d q0;
 
 		std::vector<MC::MotorPlop*> mtrplps;
 		std::vector<MC::Block*> blks;

@@ -218,21 +218,34 @@ Vector12d Core::mk_u(const Vector12d &tx) {
 }
 
 Matrix3d Core::mk_sk(const Vector3d &v) {
+	double v1, v2, v3;
+	v1 = v(0);
+	v2 = v(1);
+	v3 = v(2);
+
 	Matrix3d cp;
-	cp << 0, v(2), -v(1),
-		-v(2), 0, v(0),
-		v(1), -v(0), 0;
+	cp <<
+		0, -v3, v2
+		, v3, 0, -v1
+		, -v2, v1, 0;
+	
+	//cp << 0, v(2), -v(1),
+	//	-v(2), 0, v(0),
+	//	v(1), -v(0), 0;
 
 	return cp;
 }
 
 Matrix3d Core::mk_B_mat(const Vector12d &tx, const Matrix3d &Jb) {
 	Matrix3d Jb_inv;
-	Jb_inv << 1.0 / Jb(0, 0), 0, 0,
+	Jb_inv << 
+		1.0 / Jb(0, 0), 0, 0,
 		0, 1.0 / Jb(1, 1), 0,
 		0, 0, 1.0 / Jb(2, 2);
 
 	Matrix3d sk_L_sum = Matrix3d::Zero();
+
+
 #ifndef USE_STL_VECTOR
 	for (int i = 0; i < n_o_m; i++) {
 		sk_L_sum += mk_sk(motorplops[i].get_l());
@@ -321,10 +334,16 @@ void Core::update_q() {
 	tx = xq + dt * k3q;
 
 	Zq = mk_Z(tx);
-	k4q = Zq * tx + mk_u(tx);
+	uq = mk_u(tx);
+	k4q = Zq * tx + uq;
 
 	xq_prev = xq;
 	xq = xq + dt6 * (k1q + 2.0 * (k2q + k3q) + k4q);
+
+
+	//Zq = mk_Z(xq);
+	//xq_prev = xq;
+	//xq += dt * (Zq * xq + mk_u(xq));
 
 	NormalizeQuotanion(xq);
 	NormalizeQuotanion(xq_prev);
@@ -384,11 +403,12 @@ Eigen::Matrix4d Core::MakeOmegafromW(const Eigen::Vector3d & _w) {
 
 //!状態ベクトルからDCMを生成
 Eigen::Matrix3d Core::mk_E_mat(const Vector13d & _x) {
-	return MakeDCMfromQuotanion(GetQuotanion(_x));
+	return MakeDCMfromQuotanion(GetQuotanion(_x)).transpose();
 }
 //!状態ベクトルから0.5 * Ωを生成
 Eigen::Matrix4d Core::mk_Omega_2_mat(const Vector13d & _x) {
-	return 0.5 * MakeOmegafromW(GetAngularVelocityBodyspace(_x));
+
+	return 0.5 * MakeOmegafromW(GetAngularVelocityBodyspace(_x)).transpose();
 }
 //Bマトリックスの生成
 Eigen::Matrix3d Core::mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb) {
@@ -397,6 +417,7 @@ Eigen::Matrix3d Core::mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb) {
 		0, 1.0 / Jb(1, 1), 0,
 		0, 0, 1.0 / Jb(2, 2);
 
+	Vector3d w_bodyspace = GetAngularVelocityBodyspace(_x);
 	Matrix3d sk_L_sum = Matrix3d::Zero();
 #ifndef USE_STL_VECTOR
 	for (int i = 0; i < n_o_m; i++) {
@@ -407,7 +428,7 @@ Eigen::Matrix3d Core::mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb) {
 		sk_L_sum += mk_sk((*itr)->get_l());
 	}
 #endif
-	return Jb_inv * (mk_sk(_x.block<3, 1>(3, 0)) * Jb + sk_L_sum);
+	return  Jb_inv * (-1.0 * mk_sk(w_bodyspace) * Jb + sk_L_sum);
 }
 
 
@@ -436,17 +457,21 @@ Vector13d Core::mk_u(const Vector13d &_x) {
 }
 
 
-const Eigen::Vector3d & Core::GetVelocityBodyspace(const Vector13d & _x) {
-	return _x.block<3, 1>(0, 0);
+Eigen::Vector3d Core::GetVelocityBodyspace(const Vector13d & _x) {
+	Vector3d x = Vector3d(_x(0), _x(1), _x(2));
+	return x;
 }
-const Eigen::Vector3d & Core::GetAngularVelocityBodyspace(const Vector13d & _x) {
-	return _x.block<3, 1>(3, 0);
+Eigen::Vector3d Core::GetAngularVelocityBodyspace(const Vector13d & _x) {
+	Vector3d x = Vector3d(_x(3), _x(4), _x(5));
+	return x;
 }
-const Eigen::Vector3d & Core::GetPositionEarthspace(const Vector13d & _x) {
-	return _x.block<3, 1>(6, 0);
+Eigen::Vector3d Core::GetPositionEarthspace(const Vector13d & _x) {
+	Vector3d x = Vector3d(_x(6), _x(7), _x(8));
+	return x;
 }
-const Eigen::Vector4d & Core::GetQuotanion(const Vector13d & _x) {
-	return _x.block<4, 1>(9, 0);
+Eigen::Vector4d Core::GetQuotanion(const Vector13d & _x) {
+	Vector4d x = Vector4d(_x(9), _x(10), _x(11), _x(12));
+	return x;
 }
 void Core::SetVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_v) {
 	_x.block<3, 1>(0, 0) = _v;

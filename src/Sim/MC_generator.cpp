@@ -56,6 +56,19 @@ void MC::Generator::SetDt(double _dt) {
 	dt = _dt;
 }
 
+void MC::Generator::SetInitialVelocityBodyspace(const Eigen::Vector3d & _v) {
+	vb0 = _v;
+}
+void MC::Generator::SetInitialAngularVelocityBodyspace(const Eigen::Vector3d & _w) {
+	wb0 = _w;
+}
+void MC::Generator::SetInitialPositionEarthspace(const Eigen::Vector3d & _p) {
+	xe0 = _p;
+}
+void MC::Generator::SetInitialQuotanion(const Eigen::Vector4d & _q) {
+	q0 = _q;
+}
+
 
 MC::Core MC::Generator::generate_core() {
 	if (mtrplps.empty() && blks.empty()) { //何もなければ何もないCoreを返す
@@ -92,6 +105,57 @@ MC::Core MC::Generator::generate_core() {
 	}
 
 	return Core(J_sum, m_sum, dt, mtrplps, blks, vb0, wb0, xe0, phie0);
+}
+
+MC::Core MC::Generator::GenerateCore_q() {
+	if (mtrplps.empty() && blks.empty()) { //何もなければ何もないCoreを返す
+		return Core();
+	}
+	//全体の慣性テンソル、重心等を求める
+	//重心再計算
+	double m_sum = 0; //全質量
+	for (auto itr = blks.begin(); itr != blks.end(); ++itr) {
+		m_sum += (*itr)->mass;
+	}
+
+	Vector3d cog = Vector3d::Zero(); //全体重心
+	for (auto itr = blks.begin(); itr != blks.end(); ++itr) {
+		cog += (*itr)->c_o_g * (*itr)->mass;
+	}
+	cog /= m_sum;
+
+	//r代入 構成時位置更新
+	for (auto itr = blks.begin(); itr != blks.end(); ++itr) {
+		(*itr)->r = (*itr)->c_o_g - cog;
+	}
+
+	//全体の慣性テンソルを求める
+	Matrix3d J_sum = Matrix3d::Zero();
+	Matrix3d T = Matrix3d::Zero();
+	T <<
+		0, 1, 1,
+		1, 0, 1,
+		1, 1, 0;
+	Matrix3d addm = Matrix3d::Zero();
+	Vector3d mpr;
+	Vector3d r2;
+
+	for (auto itr = blks.begin(); itr != blks.end(); ++itr) {
+		r2 = Vector3d(
+			(*itr)->r(0) * (*itr)->r(0)
+			, (*itr)->r(1) * (*itr)->r(1)
+			, (*itr)->r(2) * (*itr)->r(2)
+			);
+		mpr = (*itr)->mass * T * r2;
+		addm(0, 0) = mpr(0);
+		addm(1, 1) = mpr(1);
+		addm(2, 2) = mpr(2);
+
+		//J_sum = (*itr)->J + T * (*itr)->r.dot(((*itr)->r));
+		J_sum = (*itr)->J + addm;
+	}
+
+	return Core(J_sum, m_sum, dt, mtrplps, blks, vb0, wb0, xe0, q0);
 }
 
 

@@ -8,3 +8,4 @@ ProjectRoot/include/~ : セクションごとに分かれたインクルード�
 ProjectRoot/src/~ : セクションごとに分かれたソースコードが入る  
 ProjectRoot/docs : 関係する文書等が入る  
 
+

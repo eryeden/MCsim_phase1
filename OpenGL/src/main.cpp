@@ -225,13 +225,21 @@ int main() {
 
 	//gene << &objtest;
 
-	gene.SetDt(0.0167);
-	gene.set_initialstate_vb(Vector3d(0, 0, 100));
-	gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
-	gene.set_initialstate_xe(Vector3d(0, 0, 100));
-	gene.set_initialstate_phie(Vector3d::Zero());
+	gene.SetDt(0.01);
+	//gene.set_initialstate_vb(Vector3d(0, 0, 100));
+	//gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
+	//gene.set_initialstate_xe(Vector3d(0, 0, 100));
+	//gene.set_initialstate_phie(Vector3d::Zero());
 
-	MC::Core core = gene.generate_core();
+	gene.SetInitialVelocityBodyspace(Vector3d(0, 0, 0));
+	gene.SetInitialAngularVelocityBodyspace(Vector3d(1.0, 0.0, 0.0));
+	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 1000));
+	gene.set_initialstate_phie(Vector3d::Zero());
+	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
+
+	//MC::Core core = gene.generate_core();
+	MC::Core core = gene.GenerateCore_q();
+
 	//################### MC SETTINGS ###############################################################
 
 	//################### CONTROLLER SETTIGNS #######################################################

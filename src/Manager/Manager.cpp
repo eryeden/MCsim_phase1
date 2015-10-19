@@ -1,5 +1,6 @@
 #include <Manager/Manager.hpp>
 #include <Controller/Controller_test.hpp>
+#include <iostream>
 
 using namespace SimulationManager;
 
@@ -14,7 +15,7 @@ Manager::Manager(
 
 	gl_sv.GenerateModel(mc_core);
 	gl_sv.GetWorldHandler().SetPositionLight(
-		glm::vec3(30, 50, 30)
+		glm::vec3(0, 50, 0)
 		);
 }
 
@@ -22,15 +23,28 @@ Manager::Manager(
 bool Manager::Update() {
 
 	controller_base.Update();
-	mc_core.update();
+	mc_core.update_q();
 
 	GLFWwindow * window = const_cast<GLFWwindow *>(gl_sv.GetWindowHandler());
 
 
 	glm::vec3 position_worldspace;
-	position_worldspace.x = mc_core.x(6);
-	position_worldspace.y = mc_core.x(7);
-	position_worldspace.z = mc_core.x(8);
+	position_worldspace.x = mc_core.xq(6);
+	position_worldspace.y = mc_core.xq(7);
+	position_worldspace.z = mc_core.xq(8);
+
+	glm::vec3 v_d;
+
+	//v_d.x = mc_core.xq(0);
+	//v_d.y = mc_core.xq(1);
+	//v_d.z = mc_core.xq(2);
+
+	Eigen::Vector3d uu = mc_core.uq.block<3, 1>(0, 0);
+	v_d.x = uu(0);
+	v_d.y = uu(1);
+	v_d.z = uu(2);
+
+	gl_sv.GetWorldHandler().v_d = v_d;
 
 	//gl_sv.GetModelHandler().SetModelPositionWorldSpace(
 	//	Space::Utility::Convert_m_To_in(
@@ -44,11 +58,13 @@ bool Manager::Update() {
 
 	gl_sv.GetModelHandler().SetModelPositionWorldSpace(
 		Space::Utility::Convert_m_To_in(position_worldspace)
-		);
+		);		 
 
 	glm::mat4 att;
-	//Eigen::Matrix3d att33 = mc_core.GetAttitudeMatrix();
-	Eigen::Matrix3d att33 = dynamic_cast<Controller::Controller_test &>(controller_base).GetDCM();
+	//OpenGLのModel行列がオブジェクト座標系からワールド座標系への変換であるとすればこれでよい
+	//つまり転地してよい
+	Eigen::Matrix3d att33 = mc_core.GetAttitudeMatrix_q().transpose(); //USE QUOTANION
+	//Eigen::Matrix3d att33 = dynamic_cast<Controller::Controller_test &>(controller_base).GetDCM();
 	att = glm::mat4(
 		att33(0, 0), att33(1, 0), att33(2, 0), 0.0f
 		, att33(0, 1), att33(1, 1), att33(2, 1), 0.0f
@@ -57,7 +73,16 @@ bool Manager::Update() {
 		);
 	gl_sv.GetModelHandler().SetModelAttitude(att);
 
-	//printf("p: %4.3f\t%4.3f\t%4.3f\n", mc_core.x(6), mc_core.x(7), mc_core.x(8));
+	printf("p: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
+		, mc_core.xq(0), mc_core.xq(1), mc_core.xq(2)
+		, Eigen::Vector3d(mc_core.xq(0), mc_core.xq(1), mc_core.xq(2)).norm()
+		);
+	printf("q: %4.3f\t%4.3f\t%4.3f\t%4.3f\n", mc_core.xq(9), mc_core.xq(10), mc_core.xq(11), mc_core.xq(12));
+	//std::cout << "A:\n" << mc_core.Zq.block<3, 3>(0, 0) << std::endl;
+	//std::cout << "B:\n" << mc_core.Zq.block<3, 3>(3, 3) << std::endl;
+	//std::cout << "E:\n" << mc_core.Zq.block<3, 3>(6, 0) << std::endl;
+	//std::cout << "O:\n" << mc_core.Zq.block<4, 4>(9, 9) << std::endl;
+
 
 	gl_sv.Render();
 
