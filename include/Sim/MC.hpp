@@ -14,6 +14,9 @@ namespace MC { // NAMESPACE MC
 
 	using Matrix12d = Eigen::Matrix<double, 12, 12>;
 	using Vector12d = Eigen::Matrix<double, 12, 1>;
+	//For Quotanion
+	using Matrix13d = Eigen::Matrix<double, 13, 13>;
+	using Vector13d = Eigen::Matrix<double, 13, 1>;
 
 	static const unsigned char ID_NONE = 0x00; //設定なし
 	static const unsigned char ID_CYLINDER = 0x01; //円柱
@@ -212,14 +215,40 @@ namespace MC { // NAMESPACE MC
 			const Eigen::Vector3d &x_e0, const Eigen::Vector3d &phi_e0
 			);
 
+		Core(
+			const Eigen::Matrix3d &tj, const double &m, const double &dt,
+			const std::vector<MotorPlop*> &mplps, const std::vector<Block*> &blks,
+			const Eigen::Vector3d &v_b0, const Eigen::Vector3d &w_b0,
+			const Eigen::Vector3d &x_e0, const Eigen::Vector4d &q_0
+			);
+
+		//################################オイラー角############################################
 		Vector12d x;
 		Vector12d x_prev;
 		Vector12d u;
+		Matrix12d Z;
+		Vector12d k1, k2, k3, k4;
+		Eigen::Matrix3d GetAttitudeMatrix(); //回転行列の取得
+		Vector12d get_state_vector(); //状態ベクトル
+		Matrix12d get_state_matrix(); //状態行列
+		void update(); //1ステップ前進積分　RK4
+		//################################オイラー角############################################
+
+		//################################クォータニオン############################################
+		Vector13d xq;
+		Vector13d xq_prev;
+		Vector13d uq;
+		Matrix13d Zq;
+		Vector13d k1q, k2q, k3q, k4q;
+		Eigen::Matrix3d GetAttitudeMatrix_q(); //回転行列の取得
+		Vector13d get_state_vector_q(); //状態ベクトル
+		Matrix13d get_state_matrix_q(); //状態行列
+		void update_q(); //1ステップ前進積分　RK4
+		//################################クォータニオン############################################
+
 		double m;
 		Eigen::Matrix3d J;
-		Matrix12d Z;
 
-		Vector12d k1, k2, k3, k4;
 		double dt, dt2, dt6;			 //頻度
 
 		MotorPlop* motorplops; //モーター部配列先頭アドレス
@@ -228,12 +257,7 @@ namespace MC { // NAMESPACE MC
 		std::vector<MC::MotorPlop*> mtrplps; //モーター／プロペラモデル
 		std::vector<MC::Block*> components; //機体構造材
 
-		void update(); //1ステップ前進積分　RK4
 
-		Vector12d get_state_vector(); //状態ベクトル
-		Matrix12d get_state_matrix(); //状態行列
-
-		Eigen::Matrix3d GetAttitudeMatrix(); //回転行列の取得
 
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成
@@ -245,6 +269,37 @@ namespace MC { // NAMESPACE MC
 		Eigen::Matrix3d mk_B_mat(const Vector12d &tx, const Eigen::Matrix3d &Jb); //Bマトリックスの生成
 		Eigen::Matrix3d mk_E_mat(const Vector12d &tx); //回転行列の生成
 		Eigen::Matrix3d mk_D_mat(const Vector12d &tx); //角速度用回転行例角生成
+
+
+
+		//クォータニオン関係
+		//クォータニオンの正規化を忘れない
+
+		Eigen::Matrix3d MakeDCMfromQuotanion(const Eigen::Vector4d & _q); //! クォータニオンからDCMを生成
+													//!このDCMは座標系の変換を行う
+		Eigen::Matrix4d MakeOmegafromW(const Eigen::Vector3d & _w);
+		//! 角速度からクォータニオンの時間微分を生成するための行列を生成
+		Eigen::Matrix3d mk_E_mat(const Vector13d & _x); //!状態ベクトルからDCMを生成
+		Eigen::Matrix4d mk_Omega_2_mat(const Vector13d & _x); //!状態ベクトルから0.5 * Ωを生成
+		Eigen::Matrix3d mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb); //Bマトリックスの生成
+
+		Matrix13d mk_Z(const Vector13d &_x);  //状態ベクトルによりZを生成
+		Eigen::Vector3d mk_u11(const Vector13d &_x); //状態ベクトルによりU11を生成
+		Vector13d mk_u(const Vector13d &_x); //U生成 U = t[U11 + U12, U2, 0, 0]
+
+		const Eigen::Vector3d & GetVelocityBodyspace(const Vector13d & _x);
+		const Eigen::Vector3d & GetAngularVelocityBodyspace(const Vector13d & _x);
+		const Eigen::Vector3d & GetPositionEarthspace(const Vector13d & _x);
+		const Eigen::Vector4d & GetQuotanion(const Vector13d & _x);
+
+		void SetVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_v);
+		void SetAngularVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_w);
+		void SetPositionEarthspace(Vector13d & _x, const Eigen::Vector3d &_s);
+		void SetQuotanion(Vector13d & _x, const Eigen::Vector4d &_q);
+
+		//クォータニオンの正規化を行う
+		void NormalizeQuotanion(Vector13d & _x);
+
 	};
 
 
