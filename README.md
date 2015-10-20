@@ -9,3 +9,5 @@ ProjectRoot/src/~ : セクションごとに分かれたソースコードが入
 ProjectRoot/docs : 関係する文書等が入る  
 
 
+## License
+MIT
