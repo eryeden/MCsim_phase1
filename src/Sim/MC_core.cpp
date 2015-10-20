@@ -346,7 +346,7 @@ void Core::update_q() {
 	//xq += dt * (Zq * xq + mk_u(xq));
 
 	NormalizeQuotanion(xq);
-	NormalizeQuotanion(xq_prev);
+	//NormalizeQuotanion(xq_prev);
 }
 
 Eigen::Matrix3d Core::GetAttitudeMatrix_q() {
@@ -408,7 +408,7 @@ Eigen::Matrix3d Core::mk_E_mat(const Vector13d & _x) {
 //!状態ベクトルから0.5 * Ωを生成
 Eigen::Matrix4d Core::mk_Omega_2_mat(const Vector13d & _x) {
 
-	return 0.5 * MakeOmegafromW(GetAngularVelocityBodyspace(_x)).transpose();
+	return 0.5 * MakeOmegafromW(GetAngularVelocityBodyspace(_x));
 }
 //Bマトリックスの生成
 Eigen::Matrix3d Core::mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb) {
@@ -435,7 +435,7 @@ Eigen::Matrix3d Core::mk_B_mat(const Vector13d &_x, const Eigen::Matrix3d &Jb) {
 //!状態ベクトルよりZの生成
 Matrix13d Core::mk_Z(const Vector13d &_x) {
 	Matrix13d tZ = MatrixXd::Zero(13, 13);
-	tZ.block<3, 3>(0, 0) = mk_sk(GetAngularVelocityBodyspace(_x));
+	tZ.block<3, 3>(0, 0) = -1.0 * mk_sk(GetAngularVelocityBodyspace(_x));
 	tZ.block<3, 3>(3, 3) = mk_B_mat(_x, J);
 	tZ.block<3, 3>(6, 0) = mk_E_mat(_x);
 	tZ.block<4, 4>(9, 9) = mk_Omega_2_mat(_x);

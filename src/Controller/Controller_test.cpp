@@ -25,20 +25,20 @@ void Controller_test::Initialize() {
 }
 
 void Controller_test::Update() {
-	Set_w_m_All(0);
+	Set_w_m_All(7000);
 
 	//dq‚ğ“¾‚é
-	dq = 0.5 * GetOmega(w_bodyspace) * q;
+	//dq = 0.5 * GetOmega(w_bodyspace) * q;
 
 	//Ï•ª‚µAq‚ğ“¾‚é
-	q = q + dq * dt;
+	//q = q + dq * dt;
 
 	//³‹K‰»
 	//Normalize(q);
-	q.normalize();
+	//q.normalize();
 
 	//DCM‚Éo—Í
-	DCM = ConvertQtoDCM(q).transpose();
+	//DCM = ConvertQtoDCM(q).transpose();
 
 	//std::cout << "dq:\n" << dq.norm() << std::endl;
 	//std::cout << "q:\n" << q.norm() << std::endl;
@@ -60,9 +60,10 @@ void Controller_test::Set_w_m_All(float _wm) {
 
 	//‚±‚ê‚ÅFor-Each•—‚Ég‚¦‚é‚ç‚µ‚¢
 	for (auto itr : core.mtrplps) {
-		itr->w_m = 0;
+		itr->w_m = _wm;
 	}
 
+	core.mtrplps[0]->w_m = _wm * 1.0;
 
 
 }

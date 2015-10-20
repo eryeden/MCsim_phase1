@@ -63,7 +63,7 @@ bool Manager::Update() {
 	glm::mat4 att;
 	//OpenGLのModel行列がオブジェクト座標系からワールド座標系への変換であるとすればこれでよい
 	//つまり転地してよい
-	Eigen::Matrix3d att33 = mc_core.GetAttitudeMatrix_q().transpose(); //USE QUOTANION
+	Eigen::Matrix3d att33 = mc_core.GetAttitudeMatrix_q(); //USE QUOTANION
 	//Eigen::Matrix3d att33 = dynamic_cast<Controller::Controller_test &>(controller_base).GetDCM();
 	att = glm::mat4(
 		att33(0, 0), att33(1, 0), att33(2, 0), 0.0f

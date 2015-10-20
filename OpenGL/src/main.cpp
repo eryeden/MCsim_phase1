@@ -76,8 +76,8 @@ int main() {
 	
 	std::string p2test = "./../../OpenGL/models/Body.stl";
 
-	c_t = 0;
-	c_q = 0;
+	c_t = 0.00000008;
+	c_q = 0.00000004;
 
 	mass_body = 0.473932;
 	position_body = Vector3d::Zero();
@@ -225,15 +225,15 @@ int main() {
 
 	//gene << &objtest;
 
-	gene.SetDt(0.01);
+	gene.SetDt(1.0 / 60.0);
 	//gene.set_initialstate_vb(Vector3d(0, 0, 100));
 	//gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
 	//gene.set_initialstate_xe(Vector3d(0, 0, 100));
 	//gene.set_initialstate_phie(Vector3d::Zero());
 
 	gene.SetInitialVelocityBodyspace(Vector3d(0, 0, 0));
-	gene.SetInitialAngularVelocityBodyspace(Vector3d(1.0, 0.0, 0.0));
-	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 1000));
+	gene.SetInitialAngularVelocityBodyspace(Vector3d(0.0, 0.0, 0.0));
+	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 700));
 	gene.set_initialstate_phie(Vector3d::Zero());
 	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
 
