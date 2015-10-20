@@ -87,6 +87,9 @@
     <ClCompile Include="..\..\OpenGL\src\Supervisor.cpp">
       <Filter>ソース ファイル\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Controller\Controller_PIDeuler.cpp">
+      <Filter>ソース ファイル\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\OpenGL\include\controls.hpp">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="..\..\OpenGL\include\Supervisor.hpp">
       <Filter>ヘッダー ファイル\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Controller\Controller_PIDeuler.hpp">
+      <Filter>ヘッダー ファイル\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

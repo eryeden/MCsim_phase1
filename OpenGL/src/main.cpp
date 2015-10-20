@@ -70,6 +70,7 @@ GLEW : Modified BSD License, the Mesa 3-D License (MIT License), and the Khronos
 #include <Supervisor.hpp>
 #include <Sim/MC.hpp>
 #include <Controller/Controller_test.hpp>
+#include <Controller/Controller_PIDeuler.hpp>
 #include <Manager/Manager.hpp>
 
 #include <Eigen/Dense>
@@ -265,8 +266,8 @@ int main() {
 	//gene.set_initialstate_phie(Vector3d::Zero());
 
 	gene.SetInitialVelocityBodyspace(Vector3d(0, 0, 0));
-	gene.SetInitialAngularVelocityBodyspace(Vector3d(0.0, 0.0, 1.0));
-	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 0.5));
+	gene.SetInitialAngularVelocityBodyspace(Vector3d(1.0, 0.0, 0.0));
+	gene.SetInitialPositionEarthspace(Vector3d(0.0, 1, 0.8));
 	gene.set_initialstate_phie(Vector3d::Zero());
 	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
 
@@ -281,6 +282,15 @@ int main() {
 	ct.Initialize();
 	ct.Setw(Vector3d(0.0, 0.0, 1));
 
+	Controller::Controller_PID_Euler ctpid(core, 1.0f / 180.0f);
+	ctpid.Initialize();
+	ctpid.Command(0);
+	ctpid.SetCoeffs(
+		20.0f
+		, 5.0f
+		, 0.1f
+		);
+
 	//################### CONTROLLER SETTIGNS #######################################################
 
 	////################### INITIALIZE OPENGL ##########################################################
@@ -293,7 +303,8 @@ int main() {
 
 	//################### MANAGER SETTINGS ###########################################################
 
-	SimulationManager::Manager mngr(ct, core);
+	//SimulationManager::Manager mngr(ct, core);
+	SimulationManager::Manager mngr(ctpid, core);
 
 	//################### MANAGER SETTINGS ###########################################################
 
