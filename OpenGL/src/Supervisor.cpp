@@ -111,7 +111,8 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 		, 0.0f, 0.0f, 0.0f, 1.0f
 		);
 
-	(space_models.back()).SetModelPositionWorldSpace(Utility::Convert_milli_To_in(position_worldspace));
+//	(space_models.back()).SetModelPositionWorldSpace(Utility::Convert_milli_To_in(position_worldspace));
+	(space_models.back()).SetModelPositionWorldSpace(Utility::Convert_metre_To_in(position_worldspace));
 	(space_models.back()).SetModelAttitude(attitude_model);
 
 	//プッシュバックでOBJECTを追加する方法だとVBO等に与えられるIDがうまく割り振られなかった
@@ -146,7 +147,8 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 			, 0.0f, 0.0f, 0.0f, 1.0f
 			);
 
-		(space_objects[i]).SetObjectPositionModelSpace(Utility::Convert_milli_To_in(position_modelspace));
+//		(space_objects[i]).SetObjectPositionModelSpace(Utility::Convert_milli_To_in(position_modelspace));
+		(space_objects[i]).SetObjectPositionModelSpace(Utility::Convert_metre_To_in(position_modelspace));
 		(space_objects[i]).SetObjectAttitude(attitude);
 	}
 

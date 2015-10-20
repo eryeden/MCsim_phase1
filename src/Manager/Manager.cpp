@@ -44,7 +44,7 @@ bool Manager::Update() {
 	v_d.y = uu(1);
 	v_d.z = uu(2);
 
-	gl_sv.GetWorldHandler().v_d = v_d;
+	gl_sv.GetWorldHandler().v_d = v_d * 1000.0f;
 
 	//gl_sv.GetModelHandler().SetModelPositionWorldSpace(
 	//	Space::Utility::Convert_m_To_in(
@@ -81,14 +81,20 @@ bool Manager::Update() {
 		);
 	gl_sv.GetModelHandler().SetModelAttitude(att);
 
-	printf("%5llu:p: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
+	printf("%8llu:p: %4.5f\t%4.5f\t%4.5f\t%4.5f\n"
 		, mc_core.GetTime()
 		, mc_core.xq(6), mc_core.xq(7), mc_core.xq(8)
 		, Eigen::Vector3d(mc_core.xq(0), mc_core.xq(1), mc_core.xq(2)).norm()
 		);
-	printf("%5llu:q: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
+	printf("%8llu:q: %4.5f\t%4.5f\t%4.5f\t%4.5f\n"
 		, mc_core.GetTime()
 		, mc_core.xq(9), mc_core.xq(10), mc_core.xq(11), mc_core.xq(12));
+
+	Eigen::Vector3d euler = mc_core.GetEulerinDegrees();
+	printf("%8llu:d: %4.5f\t%4.5f\t%4.5f\n"
+		, mc_core.GetTime()
+		, euler(0), euler(1), euler(2));
+
 	//std::cout << "A:\n" << mc_core.Zq.block<3, 3>(0, 0) << std::endl;
 	//std::cout << "B:\n" << mc_core.Zq.block<3, 3>(3, 3) << std::endl;
 	//std::cout << "E:\n" << mc_core.Zq.block<3, 3>(6, 0) << std::endl;

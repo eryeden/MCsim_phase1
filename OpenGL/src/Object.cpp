@@ -31,7 +31,7 @@ const vec3 Utility::Convert_milli_To_in(const glm::vec3 & _milli) {
 }
 
 const vec3 Utility::Convert_metre_To_in(const glm::vec3 & _metre) {
-	return _metre * 0.0393f * 1000.0f;
+	return _metre * 39.3f;
 }
 
 

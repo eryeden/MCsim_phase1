@@ -146,6 +146,8 @@ namespace MC { // NAMESPACE MC
 		Eigen::Vector3d get_f(); //スラスト
 		Eigen::Vector3d get_tau(); //トルク
 		Eigen::Vector3d get_l(); //角運動量
+
+		bool is_ccw; //回転方向の設定　初期設定は反時計回り
 	};
 
 	//シリンダー型のモーター/プロペラ
@@ -259,6 +261,8 @@ namespace MC { // NAMESPACE MC
 
 		unsigned long long GetTime(); //現在の時間を得る
 
+		Eigen::Vector3d GetEulerinDegrees();
+
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成
 		Eigen::Vector3d mk_u11(const Vector12d &tx); //状態ベクトルによりU11を生成
@@ -301,6 +305,15 @@ namespace MC { // NAMESPACE MC
 		void NormalizeQuotanion(Vector13d & _x);
 		//################################クォータニオン############################################
 		
+		//################################Common########################
+
+		//DCMを1-2-3系オイラー角に変換する
+		Eigen::Vector3d ConvertDCMtoEuler123(const Eigen::Matrix3d & _dcm);
+		Eigen::Vector3d ConvertDCMtoEuler123inDegrees(const Eigen::Matrix3d & _dcm);
+
+		//################################Common########################
+
+
 		unsigned long long time_ms; //積算時間
 
 	};

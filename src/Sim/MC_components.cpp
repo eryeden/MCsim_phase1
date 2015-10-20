@@ -105,7 +105,7 @@ MC::StLComponent::StLComponent()
 MC::StLComponent::StLComponent(const std::string &p2stl)
 	:
 	mat_attitude(Matrix3d::Zero()),
-	path_to_stl(p2stl)	
+	path_to_stl(p2stl)
 	, color(Vector3d::Zero())
 {
 	;
@@ -208,6 +208,7 @@ MC::MotorPlop::MotorPlop(double tc_t, double tc_q)
 	, c_q(tc_q)
 	, w_m(0)
 	, Jr(Matrix3d::Zero())
+	, is_ccw(true)
 {
 	;
 }
@@ -219,6 +220,7 @@ MC::MotorPlop::MotorPlop(
 	, c_q(_c_q)
 	, w_m(_w_m)
 	, Jr(_Jr)
+	, is_ccw(true)
 {
 	;
 }
@@ -227,10 +229,22 @@ Vector3d MC::MotorPlop::get_f() {
 	return Vector3d(0, 0, c_t * w_m * w_m);
 }
 Vector3d MC::MotorPlop::get_tau() {
-	return Vector3d(0, 0, -c_q * w_m * w_m);
+	if (is_ccw) {
+		return Vector3d(0, 0, -c_q * w_m * w_m);
+	}
+	else {
+		return Vector3d(0, 0, c_q * w_m * w_m);
+	}
+
 }
 Vector3d MC::MotorPlop::get_l() {
-	return (Jr * Vector3d(0, 0, w_m));
+	if (is_ccw) {
+		return (Jr * Vector3d(0, 0, w_m));
+	}
+	else {
+		return (Jr * Vector3d(0, 0, -w_m));
+	}
+
 }
 
 MC::StLMotorPlop::StLMotorPlop(double &_c_t, double &_c_q, Matrix3d &_Jr)

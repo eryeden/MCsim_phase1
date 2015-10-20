@@ -332,12 +332,15 @@ void Core::update_q() {
 
 	k1q = mk_Z(xq) * xq + mk_u(xq);
 	tx = xq + dt2 * k1q;
+	NormalizeQuotanion(tx);
 
 	k2q = mk_Z(tx) * tx + mk_u(tx);
 	tx = xq + dt2 * k2q;
+	NormalizeQuotanion(tx);
 
 	k3q = mk_Z(tx) * tx + mk_u(tx);
 	tx = xq + dt * k3q;
+	NormalizeQuotanion(tx);
 
 	Zq = mk_Z(tx);
 	uq = mk_u(tx);
@@ -501,12 +504,33 @@ void Core::NormalizeQuotanion(Vector13d & _x) {
 }
 
 
-
+//経過時間を取得
 unsigned long long Core::GetTime() {
 	return time_ms;
 }
 
+//DCMを1-2-3系オイラー角に変換する
+Eigen::Vector3d Core::ConvertDCMtoEuler123(const Eigen::Matrix3d & _dcm) {
 
+	unsigned char i, j, k;
+	i = 1 - 1; j = 2 - 1; k = 3 - 1;
+	double th1, th2, th3;
+
+	th2 = asin(_dcm(i, k));
+	th1 = atan(-1.0 * _dcm(j, k) / _dcm(k, k));
+	th3 = atan(-1.0 * _dcm(i, j) / _dcm(i, i));
+
+	return Vector3d(th1, th2, th3);
+
+}
+
+Eigen::Vector3d Core::ConvertDCMtoEuler123inDegrees(const Eigen::Matrix3d & _dcm) {
+	return ConvertDCMtoEuler123(_dcm) * 180.0 / M_PI;
+}
+
+Eigen::Vector3d Core::GetEulerinDegrees() {
+	return ConvertDCMtoEuler123inDegrees(GetAttitudeMatrix_q());
+}
 
 
 

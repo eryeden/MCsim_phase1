@@ -1,5 +1,7 @@
 #include <Controller/Controller_test.hpp>
 #include <iostream>
+#include <random>
+#include <ctime>
 
 using namespace Controller;
 using namespace Eigen;
@@ -25,7 +27,8 @@ void Controller_test::Initialize() {
 }
 
 void Controller_test::Update() {
-	Set_w_m_All(0);
+	Set_w_m_All(4598.2);
+	//Set_w_m_All(0);
 
 	//dq‚ğ“¾‚é
 	//dq = 0.5 * GetOmega(w_bodyspace) * q;
@@ -52,7 +55,9 @@ void Controller_test::Setw(const Vector3d & _w) {
 Eigen::Matrix3d Controller_test::GetDCM() {
 	return DCM;
 }
-
+//‚¢‚ëŒˆ’è—p—””­¶Ší
+std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
+std::uniform_int_distribution<int> dist(-1000, 1000);
 void Controller_test::Set_w_m_All(float _wm) {
 	//for (auto itr = core.mtrplps.begin(); itr != core.mtrplps.end(); itr++) {
 	//	(*itr)->w_m = _wm;
@@ -60,10 +65,10 @@ void Controller_test::Set_w_m_All(float _wm) {
 
 	//‚±‚ê‚ÅFor-Each•—‚Ég‚¦‚é‚ç‚µ‚¢
 	for (auto itr : core.mtrplps) {
-		itr->w_m = _wm;
+		itr->w_m = _wm + dist(rand2) / 100.0f;
 	}
 
-	core.mtrplps[0]->w_m = _wm * 1.0;
+	//core.mtrplps[0]->w_m = _wm * 0.0;
 
 
 }
