@@ -225,7 +225,7 @@ int main() {
 
 	//gene << &objtest;
 
-	gene.SetDt(1.0 / 60.0);
+	gene.SetDt(1.0f / 180.0f);
 	//gene.set_initialstate_vb(Vector3d(0, 0, 100));
 	//gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
 	//gene.set_initialstate_xe(Vector3d(0, 0, 100));
@@ -233,7 +233,7 @@ int main() {
 
 	gene.SetInitialVelocityBodyspace(Vector3d(0, 0, 0));
 	gene.SetInitialAngularVelocityBodyspace(Vector3d(0.0, 0.0, 0.0));
-	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 700));
+	gene.SetInitialPositionEarthspace(Vector3d(0, 0, 1));
 	gene.set_initialstate_phie(Vector3d::Zero());
 	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
 

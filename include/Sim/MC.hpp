@@ -257,7 +257,7 @@ namespace MC { // NAMESPACE MC
 		std::vector<MC::MotorPlop*> mtrplps; //モーター／プロペラモデル
 		std::vector<MC::Block*> components; //機体構造材
 
-
+		unsigned long long GetTime(); //現在の時間を得る
 
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成
@@ -300,6 +300,9 @@ namespace MC { // NAMESPACE MC
 		//クォータニオンの正規化を行う
 		void NormalizeQuotanion(Vector13d & _x);
 		//################################クォータニオン############################################
+		
+		unsigned long long time_ms; //積算時間
+
 	};
 
 

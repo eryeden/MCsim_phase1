@@ -25,7 +25,7 @@ void Controller_test::Initialize() {
 }
 
 void Controller_test::Update() {
-	Set_w_m_All(7000);
+	Set_w_m_All(0);
 
 	//dq‚ð“¾‚é
 	//dq = 0.5 * GetOmega(w_bodyspace) * q;

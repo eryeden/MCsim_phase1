@@ -56,9 +56,17 @@ bool Manager::Update() {
 	//		)
 	//	);
 
+	//gl_sv.GetModelHandler().SetModelPositionWorldSpace(
+	//	Space::Utility::Convert_milli_To_in(position_worldspace)
+	//	);		 
+
 	gl_sv.GetModelHandler().SetModelPositionWorldSpace(
-		Space::Utility::Convert_m_To_in(position_worldspace)
-		);		 
+		position_worldspace
+		);
+
+	gl_sv.GetModelHandler().SetModelPositionWorldSpace(
+		Space::Utility::Convert_metre_To_in(position_worldspace)
+		);
 
 	glm::mat4 att;
 	//OpenGLのModel行列がオブジェクト座標系からワールド座標系への変換であるとすればこれでよい
@@ -73,11 +81,14 @@ bool Manager::Update() {
 		);
 	gl_sv.GetModelHandler().SetModelAttitude(att);
 
-	printf("p: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
-		, mc_core.xq(0), mc_core.xq(1), mc_core.xq(2)
+	printf("%5llu:p: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
+		, mc_core.GetTime()
+		, mc_core.xq(6), mc_core.xq(7), mc_core.xq(8)
 		, Eigen::Vector3d(mc_core.xq(0), mc_core.xq(1), mc_core.xq(2)).norm()
 		);
-	printf("q: %4.3f\t%4.3f\t%4.3f\t%4.3f\n", mc_core.xq(9), mc_core.xq(10), mc_core.xq(11), mc_core.xq(12));
+	printf("%5llu:q: %4.3f\t%4.3f\t%4.3f\t%4.3f\n"
+		, mc_core.GetTime()
+		, mc_core.xq(9), mc_core.xq(10), mc_core.xq(11), mc_core.xq(12));
 	//std::cout << "A:\n" << mc_core.Zq.block<3, 3>(0, 0) << std::endl;
 	//std::cout << "B:\n" << mc_core.Zq.block<3, 3>(3, 3) << std::endl;
 	//std::cout << "E:\n" << mc_core.Zq.block<3, 3>(6, 0) << std::endl;

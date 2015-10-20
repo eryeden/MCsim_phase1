@@ -26,9 +26,14 @@ const mat4 Utility::ConvertWorldToGLSpace(const mat4 & _in) {
 	return Att_WorldToGLSpace * _in;
 }
 
-const vec3 Utility::Convert_m_To_in(const glm::vec3 & _milli) {
+const vec3 Utility::Convert_milli_To_in(const glm::vec3 & _milli) {
 	return _milli * 0.0393f;
 }
+
+const vec3 Utility::Convert_metre_To_in(const glm::vec3 & _metre) {
+	return _metre * 0.0393f * 1000.0f;
+}
+
 
 
 Object::Object()

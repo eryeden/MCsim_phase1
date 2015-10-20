@@ -123,7 +123,8 @@ namespace Space {
 		static const glm::mat4 Att_WorldToGLSpace;
 		static const glm::vec3 ConvertWorldToGLSpace(const glm::vec3 & _in);
 		static const glm::mat4 ConvertWorldToGLSpace(const glm::mat4 & _in);
-		static const glm::vec3 Convert_m_To_in(const glm::vec3 & _milli);
+		static const glm::vec3 Convert_milli_To_in(const glm::vec3 & _milli);
+		static const glm::vec3 Convert_metre_To_in(const glm::vec3 & _metre);
 	};
 
 

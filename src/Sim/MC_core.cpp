@@ -23,6 +23,7 @@ Core::Core()
 	dt6(0),
 	motorplops(NULL),
 	n_o_m(0)
+	, time_ms(0)
 {
 	;
 }
@@ -49,6 +50,7 @@ Core::Core(
 	dt6(0),
 	motorplops(NULL),
 	n_o_m(0)
+	, time_ms(0)
 {
 	J = tj;
 	m = tm;
@@ -87,6 +89,7 @@ Core::Core(
 	dt6(0),
 	mtrplps(mplps),
 	components(blks)
+	, time_ms(0)
 {
 	J = tj;
 	m = tm;
@@ -123,6 +126,7 @@ Core::Core(
 	dt6(0),
 	mtrplps(mplps),
 	components(blks)
+	, time_ms(0)
 {
 	J = tj;
 	m = tm;
@@ -303,6 +307,8 @@ void Core::update() {
 
 	x_prev = x;
 	x = x + dt6 * (k1 + 2.0 * (k2 + k3) + k4);
+
+	time_ms += (unsigned long long)(dt * 1000);
 }
 
 
@@ -347,6 +353,8 @@ void Core::update_q() {
 
 	NormalizeQuotanion(xq);
 	//NormalizeQuotanion(xq_prev);
+
+	time_ms += (unsigned long long)(dt * 1000.0);
 }
 
 Eigen::Matrix3d Core::GetAttitudeMatrix_q() {
@@ -494,6 +502,9 @@ void Core::NormalizeQuotanion(Vector13d & _x) {
 
 
 
+unsigned long long Core::GetTime() {
+	return time_ms;
+}
 
 
 
