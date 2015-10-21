@@ -97,7 +97,7 @@ int main() {
 	std::string p2body, p2motor;
 	p2body = "./../../OpenGL/models/Body.stl";
 	p2motor = "./../../OpenGL/models/bldcm.stl";
-	
+
 	std::string p2test = "./../../OpenGL/models/Body.stl";
 
 	c_t = 0.00000008;
@@ -259,15 +259,15 @@ int main() {
 	//gene << &objtest;
 
 	gene.SetDt(1.0f / 180.0f);
-	//gene.SetDt(1.0f / 60.0f);
+	//gene.SetDt(1.0f / 600.0f);
 	//gene.set_initialstate_vb(Vector3d(0, 0, 100));
 	//gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
 	//gene.set_initialstate_xe(Vector3d(0, 0, 100));
 	//gene.set_initialstate_phie(Vector3d::Zero());
 
 	gene.SetInitialVelocityBodyspace(Vector3d(0, 0, 0));
-	gene.SetInitialAngularVelocityBodyspace(Vector3d(1.0, 0.0, 0.0));
-	gene.SetInitialPositionEarthspace(Vector3d(0.0, 1, 0.8));
+	gene.SetInitialAngularVelocityBodyspace(Vector3d(0.0, 0.0, 0.0));
+	gene.SetInitialPositionEarthspace(Vector3d(0.0, 0, 0.8));
 	gene.set_initialstate_phie(Vector3d::Zero());
 	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
 
@@ -285,11 +285,28 @@ int main() {
 	Controller::Controller_PID_Euler ctpid(core, 1.0f / 180.0f);
 	ctpid.Initialize();
 	ctpid.Command(0);
-	ctpid.SetCoeffs(
+	ctpid.SetCoeffs(20.0f, 5.0f, 0.1f);
+
+	ctpid.controller_pitch.SetCoeffs(
 		20.0f
 		, 5.0f
 		, 0.1f
 		);
+
+	ctpid.controller_roll.SetCoeffs(
+		20.0f
+		, 5.0f
+		, 0.1f
+		);
+
+	ctpid.controller_altitude.SetCoeffs(
+		6000.0f
+		, 1.0f
+		, 0.5f
+		);
+
+
+
 
 	//################### CONTROLLER SETTIGNS #######################################################
 

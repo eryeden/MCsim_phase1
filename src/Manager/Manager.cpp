@@ -109,13 +109,13 @@ bool Manager::Update() {
 		glfwSetWindowShouldClose(window, 1);
 	}	
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_C)) {
-		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(20);
+		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(20);
 	}
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_X)) {
-		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(0);
+		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(0);
 	}
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_Z)) {
-		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(-20);
+		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(-20);
 	}
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_Q)) {
 		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).SetPBase(5000);

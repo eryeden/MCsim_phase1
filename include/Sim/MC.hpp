@@ -261,7 +261,8 @@ namespace MC { // NAMESPACE MC
 
 		unsigned long long GetTime(); //現在の時間を得る
 
-		Eigen::Vector3d GetEulerinDegrees();
+		Eigen::Vector3d GetEulerinDegrees();	//1-2-3系のDCMを得る
+		Eigen::Vector3d GetEulerinDegreesIJK(const Eigen::Vector3d & _ijk); // i-j-k系のDCMを得る
 
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成
@@ -310,6 +311,14 @@ namespace MC { // NAMESPACE MC
 		//DCMを1-2-3系オイラー角に変換する
 		Eigen::Vector3d ConvertDCMtoEuler123(const Eigen::Matrix3d & _dcm);
 		Eigen::Vector3d ConvertDCMtoEuler123inDegrees(const Eigen::Matrix3d & _dcm);
+
+		//DCMをi-j-k系オイラー角に変換する
+		Eigen::Vector3d ConvertDCMtoEulerIJK(const Eigen::Matrix3d & _dcm
+			, const Eigen::Vector3d & _ijk
+			);
+		Eigen::Vector3d ConvertDCMtoEulerIJKinDegrees(const Eigen::Matrix3d & _dcm
+			, const Eigen::Vector3d & _ijk
+			);
 
 		//################################Common########################
 

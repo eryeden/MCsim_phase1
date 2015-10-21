@@ -15,6 +15,48 @@
 
 namespace Controller {
 
+	class ControllerPID {
+
+	public:
+		ControllerPID(const double & _dt);
+		ControllerPID();
+
+
+		void Initialize();
+		void SetDt(const double & _dt);
+		double Update(const double & _x_in);
+
+		void SetKp(const double & _kp) { Kp = _kp; }
+		void SetTi(const double & _ti) { Ti = _ti; }
+		void SetTd(const double & _td) { Td = _td; };
+		void SetCoeffs(
+			const double & _kp
+			, const double & _ti
+			, const double & _td) {
+			Kp = _kp;
+			Ti = _ti;
+			Td = _td;
+		}
+
+		void Command(const double & _commd) { x_command = _commd; }
+
+		void Output();
+
+	private:
+		//PIDゲイン
+		double Kp, Ti, Td;
+		double x_command; //目標値
+		double x_present; //現在の値
+		double x_previous; //ひとつ前の値
+		double error_present;
+		double error_previous;
+		double error_derivative; //微分値
+		double error_integral; //積分地
+		double dt; //制御ステップ時間
+		double wdiff;
+
+	};
+
 	class Controller_PID_Euler : public Controller::Base {
 	public:
 		Controller_PID_Euler(MC::Core & _mc_core, const double &_dt);
@@ -41,6 +83,10 @@ namespace Controller {
 		void Command(const double & _commd) { theta_command = _commd; }
 		void SetPBase(const double & _pbase) { p_base = _pbase; }
 
+		ControllerPID controller_altitude;
+		ControllerPID controller_pitch;
+		ControllerPID controller_roll;
+
 	private:
 
 		void Set_w_m_All(float _wm);
@@ -60,6 +106,8 @@ namespace Controller {
 		XboxController::CXBOXController xboxctrlr;
 
 	};
+
+
 
 
 };

@@ -532,6 +532,28 @@ Eigen::Vector3d Core::GetEulerinDegrees() {
 	return ConvertDCMtoEuler123inDegrees(GetAttitudeMatrix_q());
 }
 
+//DCMをi-j-k系オイラー角に変換する
+Eigen::Vector3d Core::ConvertDCMtoEulerIJK(const Eigen::Matrix3d & _dcm
+	, const Eigen::Vector3d & _ijk
+	) {
+	unsigned char i, j, k;
+	i = _ijk(0) - 1; j = _ijk(1) - 1; k = _ijk(2) - 1;
+	double th1, th2, th3;
 
+	th2 = asin(_dcm(i, k));
+	th1 = atan(-1.0 * _dcm(j, k) / _dcm(k, k));
+	th3 = atan(-1.0 * _dcm(i, j) / _dcm(i, i));
 
+	return Vector3d(th1, th2, th3);
+}
 
+//DCMをi-j-k系オイラー角に変換する
+Eigen::Vector3d Core::ConvertDCMtoEulerIJKinDegrees(const Eigen::Matrix3d & _dcm
+	, const Eigen::Vector3d & _ijk
+	) {
+	return ConvertDCMtoEulerIJK(_dcm, _ijk) * 180.0 / M_PI;
+}
+
+Eigen::Vector3d Core::GetEulerinDegreesIJK(const Eigen::Vector3d & _ijk) {
+	return ConvertDCMtoEulerIJKinDegrees(GetAttitudeMatrix_q(), _ijk);
+}
