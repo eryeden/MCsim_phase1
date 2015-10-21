@@ -18,6 +18,7 @@ Controller_PID_Euler::Controller_PID_Euler(MC::Core & _mc_core, const double & _
 	, error_previous(0)
 	, dt(_dt)
 	, p_base(4600)
+	, xboxctrlr(1)
 {
 	Initialize();
 }
@@ -68,12 +69,22 @@ void Controller_PID_Euler::Update() {
 	}
 
 
-	printf("the_pres:%f\twd:%f\tdiv:%f\tintg:%f\n", theta_present, wdiff, theta_derivative, theta_integral);
+	//printf("the_pres:%f\twd:%f\tdiv:%f\tintg:%f\n", theta_present, wdiff, theta_derivative, theta_integral);
 
+
+	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
+	printf("LX:%f\tLY:%f\tRX:%f\tRY:%f\tLT:%f\tRT:%f\n"
+		, ctrlr_state(0)
+		, ctrlr_state(1)
+		, ctrlr_state(2)
+		, ctrlr_state(3)
+		, ctrlr_state(4)
+		, ctrlr_state(5)
+		);
 
 
 	//Set_w_m_All(0);
-
+			  
 	//dq‚ð“¾‚é
 	//dq = 0.5 * GetOmega(w_bodyspace) * q;
 

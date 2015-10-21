@@ -11,6 +11,7 @@
 
 #include <Sim/MC.hpp>
 #include <Controller/Base.hpp>
+#include <Xbox/XboxController.hpp>
 
 namespace Controller {
 
@@ -56,7 +57,7 @@ namespace Controller {
 		double dt; //制御ステップ時間
 		double p_base;
 
-
+		XboxController::CXBOXController xboxctrlr;
 
 	};
 

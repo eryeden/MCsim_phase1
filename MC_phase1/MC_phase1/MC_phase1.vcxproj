@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Common\Xbox\XboxController.cpp" />
     <ClCompile Include="..\..\OpenGL\src\controls.cpp" />
     <ClCompile Include="..\..\OpenGL\src\Importer.cpp" />
     <ClCompile Include="..\..\OpenGL\src\main.cpp" />
@@ -37,6 +38,7 @@
     <ClCompile Include="..\..\src\Sim\MC_generator.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Common\Xbox\XboxController.hpp" />
     <ClInclude Include="..\..\include\Controller\Base.hpp" />
     <ClInclude Include="..\..\include\Controller\Controller_PIDeuler.hpp" />
     <ClInclude Include="..\..\include\Controller\Controller_test.hpp" />

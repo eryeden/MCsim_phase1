@@ -40,6 +40,12 @@
     <Filter Include="ヘッダー ファイル\Manager">
       <UniqueIdentifier>{b60507f0-0be6-4d4f-9e5a-53b6d5c6158b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Xbox">
+      <UniqueIdentifier>{22a05728-0edd-4b67-b772-af0683a84c4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Xbox">
+      <UniqueIdentifier>{165c8dbb-1233-4288-95f0-c3a0c77e1d13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\OpenGL\src\controls.cpp">
@@ -90,6 +96,9 @@
     <ClCompile Include="..\..\src\Controller\Controller_PIDeuler.cpp">
       <Filter>ソース ファイル\Controller</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Common\Xbox\XboxController.cpp">
+      <Filter>ソース ファイル\Xbox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\OpenGL\include\controls.hpp">
@@ -127,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Controller\Controller_PIDeuler.hpp">
       <Filter>ヘッダー ファイル\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Common\Xbox\XboxController.hpp">
+      <Filter>ヘッダー ファイル\Xbox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
