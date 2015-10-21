@@ -86,6 +86,7 @@ namespace Controller {
 		ControllerPID controller_altitude;
 		ControllerPID controller_pitch;
 		ControllerPID controller_roll;
+		ControllerPID controller_yawrate;
 
 	private:
 

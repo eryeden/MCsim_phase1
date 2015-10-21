@@ -26,6 +26,7 @@ Controller_PID_Euler::Controller_PID_Euler(MC::Core & _mc_core, const double & _
 	, controller_altitude(_dt)
 	, controller_pitch(_dt)
 	, controller_roll(_dt)
+	, controller_yawrate(_dt)
 {
 	Initialize();
 }
@@ -43,6 +44,7 @@ void Controller_PID_Euler::Update() {
 	Vector3d angle_euler231 = core.GetEulerinDegreesIJK(Vector3d(2, 3, 1));
 	Vector3d angle_euler312 = core.GetEulerinDegreesIJK(Vector3d(3, 1, 2));
 	Vector3d position = core.get_state_vector_q().block<3, 1>(6, 0);
+	Vector3d rate_dps = core.get_state_vector_q().block<3, 1>(3, 0) * 180.0 / M_PI;
 
 
 	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
@@ -55,14 +57,14 @@ void Controller_PID_Euler::Update() {
 	//	, ctrlr_state(5)
 	//	);
 
-	controller_altitude.Command(0.5);
+	controller_altitude.Command(0.5 + 0.4 * (ctrlr_state(5) - ctrlr_state(4)));
 	double base_ctrl = controller_altitude.Update(position(2));
 	//controller_altitude.Output();
 
 	double p_base_out = base_ctrl;// p_base + 90.0 * (ctrlr_state(5) - ctrlr_state(4));	//base_ctrl;
-	controller_pitch.Command(ctrlr_state(0) * 10.0);
-	controller_roll.Command(ctrlr_state(1) * 10.0);
-	double yaw_factor = ctrlr_state(2) * 10.0;
+	controller_pitch.Command(ctrlr_state(0) * 30.0);
+	controller_roll.Command(ctrlr_state(1) * 30.0);
+	controller_yawrate.Command(ctrlr_state(2) * 100.0);
 	//Command(ctrlr_state(0) * 20.0);
 
 
@@ -76,17 +78,20 @@ void Controller_PID_Euler::Update() {
 
 	double wdiff_pitch = controller_pitch.Update(angle_euler312(1));
 	double wdiff_roll = controller_roll.Update(angle_euler312(2));
+	double yaw_factor = controller_yawrate.Update(rate_dps(2));
 
 	//controller_pitch.Output();
 	//controller_roll.Output();
 
+	controller_yawrate.Output();
+
 	printf("P:%f\tR:%f\n", angle_euler123(0), angle_euler231(0));
 
-	core.mtrplps[0]->w_m += -wdiff_pitch - wdiff_roll + yaw_factor;
-	core.mtrplps[1]->w_m += +wdiff_pitch - wdiff_roll - yaw_factor;
+	core.mtrplps[0]->w_m += -wdiff_pitch - wdiff_roll - yaw_factor;
+	core.mtrplps[1]->w_m += +wdiff_pitch - wdiff_roll + yaw_factor;
 
-	core.mtrplps[2]->w_m += +wdiff_pitch + wdiff_roll + yaw_factor;
-	core.mtrplps[3]->w_m += -wdiff_pitch + wdiff_roll - yaw_factor;
+	core.mtrplps[2]->w_m += +wdiff_pitch + wdiff_roll - yaw_factor;
+	core.mtrplps[3]->w_m += -wdiff_pitch + wdiff_roll + yaw_factor;
 
 	double upper = 7000;
 	double lower = 0;

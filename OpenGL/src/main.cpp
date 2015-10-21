@@ -108,14 +108,14 @@ int main() {
 
 	mass_body = 0.473932;
 	position_body = 0.001f * Vector3d::Zero();
-	//position_cog_body = 0.001f * Vector3d(
-	//	-0.014185
-	//	, -0.000018
-	//	, 6.483679);
 	position_cog_body = 0.001f * Vector3d(
-		0
-		, 0
+		-1.014185
+		, -1.000018
 		, 6.483679);
+	//position_cog_body = 0.001f * Vector3d(
+	//	0
+	//	, 0
+	//	, 6.483679);
 	att_body = Matrix3d::Identity();
 	j_body = Matrix3d::Zero();
 	j_body(0, 0) = 0.005991;
@@ -303,6 +303,12 @@ int main() {
 		6000.0f
 		, 1.0f
 		, 0.5f
+		);
+
+	ctpid.controller_yawrate.SetCoeffs(
+		10.0f
+		, 0.01f
+		, 0.015f
 		);
 
 
