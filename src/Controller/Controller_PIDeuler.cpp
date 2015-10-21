@@ -6,6 +6,10 @@
 using namespace Controller;
 using namespace Eigen;
 
+
+std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
+std::uniform_int_distribution<int> dist(-1000, 1000);
+
 Controller_PID_Euler::Controller_PID_Euler(MC::Core & _mc_core, const double & _dt)
 	:Base(_mc_core)
 	, Kp(0), Ti(0), Td(0)
@@ -34,11 +38,29 @@ void Controller_PID_Euler::Initialize() {
 void Controller_PID_Euler::Update() {
 	Vector3d angle_euler = core.GetEulerinDegrees();
 
+
+
+	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
+	printf("LX:%f\tLY:%f\tRX:%f\tRY:%f\tLT:%f\tRT:%f\n"
+		, ctrlr_state(0)
+		, ctrlr_state(1)
+		, ctrlr_state(2)
+		, ctrlr_state(3)
+		, ctrlr_state(4)
+		, ctrlr_state(5)
+		);
+
+	
+	double p_base_out = p_base + 90.0 * (ctrlr_state(5) - ctrlr_state(4));
+	Command(ctrlr_state(0) * 20.0);
+
+
+
 	//Set_w_m_All(4598.2);
-	Set_w_m_All(p_base);
+	Set_w_m_All(p_base_out);
 
 	theta_previous = theta_present;
-	theta_present = angle_euler(0);
+	theta_present = angle_euler(0) + dist(rand2) / 100.0f;
 
 	error_previous = error_present;
 	error_present = (theta_command - theta_present);
@@ -72,53 +94,13 @@ void Controller_PID_Euler::Update() {
 	//printf("the_pres:%f\twd:%f\tdiv:%f\tintg:%f\n", theta_present, wdiff, theta_derivative, theta_integral);
 
 
-	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
-	printf("LX:%f\tLY:%f\tRX:%f\tRY:%f\tLT:%f\tRT:%f\n"
-		, ctrlr_state(0)
-		, ctrlr_state(1)
-		, ctrlr_state(2)
-		, ctrlr_state(3)
-		, ctrlr_state(4)
-		, ctrlr_state(5)
-		);
-
-
-	//Set_w_m_All(0);
-			  
-	//dqを得る
-	//dq = 0.5 * GetOmega(w_bodyspace) * q;
-
-	//積分し、qを得る
-	//q = q + dq * dt;
-
-	//正規化
-	//Normalize(q);
-	//q.normalize();
-
-	//DCMに出力
-	//DCM = ConvertQtoDCM(q).transpose();
-
-	//std::cout << "dq:\n" << dq.norm() << std::endl;
-	//std::cout << "q:\n" << q.norm() << std::endl;
 
 }
 
-////いろ決定用乱数発生器
-//std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
-//std::uniform_int_distribution<int> dist(-1000, 1000);
 void Controller_PID_Euler::Set_w_m_All(float _wm) {
-	//for (auto itr = core.mtrplps.begin(); itr != core.mtrplps.end(); itr++) {
-	//	(*itr)->w_m = _wm;
-	//}
 
-
-
-	//これでFor-Each風に使えるらしい
 	for (auto itr : core.mtrplps) {
-		itr->w_m = _wm;// +dist(rand2) / 100.0f;
+		itr->w_m = _wm;// +dist(rand2) / 10.0f;
 	}
-
-	//core.mtrplps[0]->w_m = _wm * 0.0;
-
 
 }

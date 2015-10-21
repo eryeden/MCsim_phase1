@@ -56,8 +56,8 @@ Eigen::Matrix3d Controller_test::GetDCM() {
 	return DCM;
 }
 //‚¢‚ëŒˆ’è—p—””­¶Ší
-std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
-std::uniform_int_distribution<int> dist(-1000, 1000);
+static std::mt19937 rand2(static_cast<unsigned int>(time(nullptr)));
+static std::uniform_int_distribution<int> dist(-1000, 1000);
 void Controller_test::Set_w_m_All(float _wm) {
 	//for (auto itr = core.mtrplps.begin(); itr != core.mtrplps.end(); itr++) {
 	//	(*itr)->w_m = _wm;

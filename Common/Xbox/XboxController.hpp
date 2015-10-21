@@ -9,7 +9,11 @@
 #include <XInput.h>
 #include <Eigen/Dense>
 
-#pragma comment(lib, "XInput.lib")
+#ifdef _WIN32_WINNT_WIN7
+	#pragma comment(lib, "XInput9_1_0.lib")
+#else
+	#pragma comment(lib, "XInput.lib")
+#endif
 
 namespace XboxController {
 	// XBOX Controller Class Definition

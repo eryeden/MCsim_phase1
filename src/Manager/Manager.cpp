@@ -118,10 +118,10 @@ bool Manager::Update() {
 		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).Command(-20);
 	}
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_Q)) {
-		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).SetPBase(5000);
+		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).SetPBase(5000);
 	}
 	else if (GLFW_PRESS == glfwGetKey(window, GLFW_KEY_A)) {
-		dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).SetPBase(4300);
+		//dynamic_cast<Controller::Controller_PID_Euler &>(controller_base).SetPBase(4300);
 	}
 	return glfwWindowShouldClose(window);
 }

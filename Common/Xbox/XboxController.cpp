@@ -54,12 +54,25 @@ void CXBOXController::Vibrate(int leftVal, int rightVal)
 
 
 Eigen::Vector4d CXBOXController::GetThumb(const XINPUT_STATE & _xin) {
-	return Eigen::Vector4d(
+	Eigen::Vector4d thumb;
+	const double th = 0.17;
+	thumb = Eigen::Vector4d(
 		(double)(_xin.Gamepad.sThumbLX) / 65535.0 * 2.0 //-0.5
 		, (double)(_xin.Gamepad.sThumbLY) / 65535.0 * 2.0//	-0.5
 		, (double)(_xin.Gamepad.sThumbRX) / 65535.0	* 2.0//-0.5
 		, (double)(_xin.Gamepad.sThumbRY) / 65535.0	* 2.0//-0.5
 		);
+
+	for (int i = 0; i < 4; ++i) {
+		if (thumb(i) > 0.0) {
+			thumb(i) = (abs(thumb(i)) < th) ? 0.0 : thumb(i) - th;
+		}
+		else {
+			thumb(i) = (abs(thumb(i)) < th) ? 0.0 : thumb(i) + th;
+		}
+	}
+	
+	return thumb;
 }
 
 Eigen::Vector2d CXBOXController::GetTriger(const XINPUT_STATE & _xin) {
