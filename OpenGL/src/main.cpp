@@ -108,14 +108,14 @@ int main() {
 
 	mass_body = 0.473932;
 	position_body = 0.001f * Vector3d::Zero();
-	position_cog_body = 0.001f * Vector3d(
-		-1.014185
-		, -1.000018
-		, 6.483679);
 	//position_cog_body = 0.001f * Vector3d(
-	//	0
-	//	, 0
+	//	-1.014185
+	//	, -1.000018
 	//	, 6.483679);
+	position_cog_body = 0.001f * Vector3d(
+		0
+		, 0
+		, 6.483679);
 	att_body = Matrix3d::Identity();
 	j_body = Matrix3d::Zero();
 	j_body(0, 0) = 0.005991;
@@ -258,7 +258,7 @@ int main() {
 
 	//gene << &objtest;
 
-	gene.SetDt(1.0f / 180.0f);
+	gene.SetDt(1.0f / 270.0f);
 	//gene.SetDt(1.0f / 600.0f);
 	//gene.set_initialstate_vb(Vector3d(0, 0, 100));
 	//gene.set_initialstate_wb(Vector3d(0.0, 0.0, 0.0));
@@ -282,7 +282,7 @@ int main() {
 	ct.Initialize();
 	ct.Setw(Vector3d(0.0, 0.0, 1));
 
-	Controller::Controller_PID_Euler ctpid(core, 1.0f / 180.0f);
+	Controller::Controller_PID_Euler ctpid(core, 1.0f / 270.0f);
 	ctpid.Initialize();
 	ctpid.Command(0);
 	ctpid.SetCoeffs(20.0f, 5.0f, 0.1f);
