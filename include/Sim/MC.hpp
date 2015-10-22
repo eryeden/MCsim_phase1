@@ -280,7 +280,7 @@ namespace MC { // NAMESPACE MC
 		//クォータニオン関係
 		//クォータニオンの正規化を忘れない
 
-		Eigen::Matrix3d MakeDCMfromQuotanion(const Eigen::Vector4d & _q); //! クォータニオンからDCMを生成
+		Eigen::Matrix3d MakeDCMfromQuaternion(const Eigen::Vector4d & _q); //! クォータニオンからDCMを生成
 													//!このDCMは座標系の変換を行う
 		Eigen::Matrix4d MakeOmegafromW(const Eigen::Vector3d & _w);
 		//! 角速度からクォータニオンの時間微分を生成するための行列を生成
@@ -295,15 +295,15 @@ namespace MC { // NAMESPACE MC
 		Eigen::Vector3d GetVelocityBodyspace(const Vector13d & _x);
 		Eigen::Vector3d GetAngularVelocityBodyspace(const Vector13d & _x);
 		Eigen::Vector3d GetPositionEarthspace(const Vector13d & _x);
-		Eigen::Vector4d GetQuotanion(const Vector13d & _x);
+		Eigen::Vector4d GetQuaternion(const Vector13d & _x);
 
 		void SetVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_v);
 		void SetAngularVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_w);
 		void SetPositionEarthspace(Vector13d & _x, const Eigen::Vector3d &_s);
-		void SetQuotanion(Vector13d & _x, const Eigen::Vector4d &_q);
+		void SetQuaternion(Vector13d & _x, const Eigen::Vector4d &_q);
 
 		//クォータニオンの正規化を行う
-		void NormalizeQuotanion(Vector13d & _x);
+		void NormalizeQuaternion(Vector13d & _x);
 		//################################クォータニオン############################################
 		
 		//################################Common########################

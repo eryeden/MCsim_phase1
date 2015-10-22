@@ -142,7 +142,7 @@ Core::Core(
 	SetVelocityBodyspace(xq, v_b0);
 	SetAngularVelocityBodyspace(xq, w_b0);
 	SetPositionEarthspace(xq, x_e0);
-	SetQuotanion(xq, q_0);
+	SetQuaternion(xq, q_0);
 }
 
 
@@ -332,15 +332,15 @@ void Core::update_q() {
 
 	k1q = mk_Z(xq) * xq + mk_u(xq);
 	tx = xq + dt2 * k1q;
-	NormalizeQuotanion(tx);
+	NormalizeQuaternion(tx);
 
 	k2q = mk_Z(tx) * tx + mk_u(tx);
 	tx = xq + dt2 * k2q;
-	NormalizeQuotanion(tx);
+	NormalizeQuaternion(tx);
 
 	k3q = mk_Z(tx) * tx + mk_u(tx);
 	tx = xq + dt * k3q;
-	NormalizeQuotanion(tx);
+	NormalizeQuaternion(tx);
 
 	Zq = mk_Z(tx);
 	uq = mk_u(tx);
@@ -354,8 +354,8 @@ void Core::update_q() {
 	//xq_prev = xq;
 	//xq += dt * (Zq * xq + mk_u(xq));
 
-	NormalizeQuotanion(xq);
-	//NormalizeQuotanion(xq_prev);
+	NormalizeQuaternion(xq);
+	//NormalizeQuaternion(xq_prev);
 
 	time_ms += (unsigned long long)(dt * 1000.0);
 }
@@ -372,7 +372,7 @@ Matrix13d Core::get_state_matrix_q() {
 	return Zq;
 }
 
-Matrix3d Core::MakeDCMfromQuotanion(const Vector4d & _q) {
+Matrix3d Core::MakeDCMfromQuaternion(const Vector4d & _q) {
 	double q1, q2, q3, q4, q11, q22, q33, q44;
 	q1 = _q(0);
 	q2 = _q(1);
@@ -414,7 +414,7 @@ Eigen::Matrix4d Core::MakeOmegafromW(const Eigen::Vector3d & _w) {
 
 //!状態ベクトルからDCMを生成
 Eigen::Matrix3d Core::mk_E_mat(const Vector13d & _x) {
-	return MakeDCMfromQuotanion(GetQuotanion(_x)).transpose();
+	return MakeDCMfromQuaternion(GetQuaternion(_x)).transpose();
 }
 //!状態ベクトルから0.5 * Ωを生成
 Eigen::Matrix4d Core::mk_Omega_2_mat(const Vector13d & _x) {
@@ -455,7 +455,7 @@ Matrix13d Core::mk_Z(const Vector13d &_x) {
 //状態ベクトルによりU11を生成
 Eigen::Vector3d Core::mk_u11(const Vector13d &_x) {
 	Vector3d g_earthspace(0, 0, -MC_G);
-	Matrix3d dcm = MakeDCMfromQuotanion(GetQuotanion(_x));
+	Matrix3d dcm = MakeDCMfromQuaternion(GetQuaternion(_x));
 	Vector3d u11 = dcm * g_earthspace;
 	return u11;
 }
@@ -480,7 +480,7 @@ Eigen::Vector3d Core::GetPositionEarthspace(const Vector13d & _x) {
 	Vector3d x = Vector3d(_x(6), _x(7), _x(8));
 	return x;
 }
-Eigen::Vector4d Core::GetQuotanion(const Vector13d & _x) {
+Eigen::Vector4d Core::GetQuaternion(const Vector13d & _x) {
 	Vector4d x = Vector4d(_x(9), _x(10), _x(11), _x(12));
 	return x;
 }
@@ -493,13 +493,13 @@ void Core::SetAngularVelocityBodyspace(Vector13d & _x, const Eigen::Vector3d &_w
 void Core::SetPositionEarthspace(Vector13d & _x, const Eigen::Vector3d &_s) {
 	_x.block<3, 1>(6, 0) = _s;
 }
-void Core::SetQuotanion(Vector13d & _x, const Eigen::Vector4d &_q) {
+void Core::SetQuaternion(Vector13d & _x, const Eigen::Vector4d &_q) {
 	_x.block<4, 1>(9, 0) = _q;
 }
 
 
 //状態ベクトル中のクォータニオンの正規化を行う
-void Core::NormalizeQuotanion(Vector13d & _x) {
+void Core::NormalizeQuaternion(Vector13d & _x) {
 	_x.block<4, 1>(9, 0).normalize();
 }
 
