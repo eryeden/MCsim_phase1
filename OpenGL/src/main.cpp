@@ -107,7 +107,8 @@ int main() {
 	//c_q = 0.00000000;
 
 	mass_body = 0.473932;
-	position_body = 0.001f * Vector3d::Zero();
+//	position_body = 0.001f * Vector3d::Zero();
+	position_body = 0.001f * Vector3d(0, 0, 0);
 	//position_cog_body = 0.001f * Vector3d(
 	//	-1.014185
 	//	, -1.000018
