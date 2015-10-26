@@ -179,7 +179,7 @@ MC::Core MC::Generator::GenerateCore_q() {
 		J_sum = (*itr)->J + addm;
 	}
 
-	return Core(J_sum, m_sum, dt, mtrplps, blks, vb0, wb0, xe0, q0);
+	return Core(J_sum, m_sum, dt, mtrplps, blks, vb0, wb0, xe0, q0, cog);
 }
 
 

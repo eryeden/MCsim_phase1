@@ -169,6 +169,22 @@ Core::Core(
 	SetQuaternion(xq, q_0);
 }
 
+//コンストラクタのデリゲートというらしい
+//古いコンストラクタでは動かない
+//デリゲートコンストラクタではコンストラクタ以外の初期化子をかけない
+Core::Core(const Eigen::Matrix3d &tj, const double &m, const double &dt,
+	const std::vector<MC::MotorPlop*> &mplps, const std::vector<MC::Block*> &blks,
+	const Eigen::Vector3d &v_b0, const Eigen::Vector3d &w_b0,
+	const Eigen::Vector3d &x_e0, const Eigen::Vector4d &q_0
+	, const Eigen::Vector3d & _cg)
+	:Core(tj,  m,  dt,
+		 mplps,  blks,
+		 v_b0,  w_b0,
+		 x_e0, q_0)
+{
+	cg_assemblyspace = _cg;
+}
+
 
 Matrix12d Core::mk_Z(const Vector12d & tx) {
 	Matrix12d tZ = MatrixXd::Zero(12, 12);
@@ -581,3 +597,14 @@ Eigen::Vector3d Core::ConvertDCMtoEulerIJKinDegrees(const Eigen::Matrix3d & _dcm
 Eigen::Vector3d Core::GetEulerinDegreesIJK(const Eigen::Vector3d & _ijk) {
 	return ConvertDCMtoEulerIJKinDegrees(GetAttitudeMatrix_q(), _ijk);
 }
+
+Eigen::Vector3d Core::GetCGAssemblyspace() {
+	return cg_assemblyspace;
+}
+
+void Core::SetCGAssemblyspace(const Eigen::Vector3d & _cg) {
+	cg_assemblyspace = _cg;
+}
+
+
+

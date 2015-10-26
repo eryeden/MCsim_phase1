@@ -236,16 +236,24 @@ namespace MC { // NAMESPACE MC
 
 		Core(
 			const Eigen::Matrix3d &tj, const double &m, const double &dt,
-			const std::vector<MotorPlop*> &mplps, const std::vector<Block*> &blks,
+			const std::vector<MC::MotorPlop*> &mplps, const std::vector<MC::Block*> &blks,
 			const Eigen::Vector3d &v_b0, const Eigen::Vector3d &w_b0,
 			const Eigen::Vector3d &x_e0, const Eigen::Vector3d &phi_e0
 			);
 
 		Core(
 			const Eigen::Matrix3d &tj, const double &m, const double &dt,
-			const std::vector<MotorPlop*> &mplps, const std::vector<Block*> &blks,
+			const std::vector<MC::MotorPlop*> &mplps, const std::vector<MC::Block*> &blks,
 			const Eigen::Vector3d &v_b0, const Eigen::Vector3d &w_b0,
 			const Eigen::Vector3d &x_e0, const Eigen::Vector4d &q_0
+			);
+		
+		Core(
+			const Eigen::Matrix3d &tj, const double &m, const double &dt,
+			const std::vector<MC::MotorPlop*> &mplps, const std::vector<MC::Block*> &blks,
+			const Eigen::Vector3d &v_b0, const Eigen::Vector3d &w_b0,
+			const Eigen::Vector3d &x_e0, const Eigen::Vector4d &q_0
+			, const Eigen::Vector3d & _cg
 			);
 
 		//################################オイラー角############################################
@@ -277,7 +285,7 @@ namespace MC { // NAMESPACE MC
 
 		double dt, dt2, dt6;			 //頻度
 
-		MotorPlop* motorplops; //モーター部配列先頭アドレス
+		MC::MotorPlop* motorplops; //モーター部配列先頭アドレス
 		unsigned int n_o_m;      //モーター個数
 
 		std::vector<MC::MotorPlop*> mtrplps; //モーター／プロペラモデル
@@ -287,6 +295,9 @@ namespace MC { // NAMESPACE MC
 
 		Eigen::Vector3d GetEulerinDegrees();	//1-2-3系のDCMを得る
 		Eigen::Vector3d GetEulerinDegreesIJK(const Eigen::Vector3d & _ijk); // i-j-k系のDCMを得る
+
+		Eigen::Vector3d GetCGAssemblyspace();
+		void SetCGAssemblyspace(const Eigen::Vector3d & _cg);
 
 	private:
 		Matrix12d mk_Z(const Vector12d &tx);  //状態ベクトルによりZを生成
@@ -348,6 +359,9 @@ namespace MC { // NAMESPACE MC
 
 
 		unsigned long long time_ms; //積算時間
+
+		//アセンブリ空間における重心
+		Eigen::Vector3d cg_assemblyspace;
 
 	};
 

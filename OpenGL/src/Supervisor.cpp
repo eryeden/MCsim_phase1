@@ -158,9 +158,13 @@ void Supervisor::GenerateModel(MC::Core & _mc_core) {
 			, vec3(comp->GetColor()(0), comp->GetColor()(1), comp->GetColor()(2)));
 
 
-		position_modelspace.x = comp->GetPositionModelspace()(0);
-		position_modelspace.y = comp->GetPositionModelspace()(1);
-		position_modelspace.z = comp->GetPositionModelspace()(2);
+		position_modelspace.x = comp->GetPositionModelspace()(0) - _mc_core.GetCGAssemblyspace()(0);
+		position_modelspace.y = comp->GetPositionModelspace()(1) - _mc_core.GetCGAssemblyspace()(1);
+		position_modelspace.z = comp->GetPositionModelspace()(2) - _mc_core.GetCGAssemblyspace()(2);
+
+		//position_modelspace.x = comp->c_o_g(0);
+		//position_modelspace.y = comp->c_o_g(1);
+		//position_modelspace.z = comp->c_o_g(2);
 
 		att33 = comp->GetAttitude();
 
