@@ -192,3 +192,10 @@ $RECYCLE.BIN/
  
 # Mac crap
 .DS_Store
+
+
+
+#
+# For autocomplete .json file
+#
+compile_commands.json
