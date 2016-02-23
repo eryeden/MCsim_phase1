@@ -287,14 +287,14 @@ void World::AddModel(Space::Model * _model) {
 	models.push_back(_model);  //描画モデル追加
 }
 
-//地面描画機構
-void World::BindGround() {
 
+void World::BindGround() {
+  ;
 }
 
-//スカイドーム描画機構
-void World::BindSky() {
 
+void World::BindSky() {
+  ;
 }
 
 void World::SetPositionCamera(const glm::vec3 & _position_cam) {

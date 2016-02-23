@@ -35,7 +35,12 @@ THE SOFTWARE.
 
 #include <Sim/MC.hpp>
 #include <Controller/Base.hpp>
+
+
+//Windowsのみ
+#ifdef _MSC_VER
 #include <Xbox/XboxController.hpp>
+#endif
 
 namespace Controller {
 
@@ -128,8 +133,10 @@ namespace Controller {
 		double dt; //制御ステップ時間
 		double p_base;
 
+	  //Windowsのみxs
+#ifdef _MSC_VER
 		XboxController::CXBOXController xboxctrlr;
-
+#endif
 	};
 
 

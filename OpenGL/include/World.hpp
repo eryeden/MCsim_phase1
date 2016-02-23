@@ -37,13 +37,18 @@ THE SOFTWARE.
 #endif
 
 #ifdef _MSC_VER
+
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "GlU32.Lib")
 #pragma comment(lib, "glew32.lib")
 
 #include <gl/glew.h>
 #define _CRT_SECURE_NO_WARNINGS
+
 #endif
+
+// #include <GL/glew.h>
+// #define _CRT_SECURE_NO_WARNINGS
 
 #define GL_GLEXT_PROTOTYPES
 //GLEWの拡張を使うには此れ↑が必要（glGenBuffers等）
@@ -155,7 +160,7 @@ namespace Space {
 		Object();
 
 		void LoadModel(const std::string & _file_path);
-		void Object::LoadModel(const std::string & _file_path, const glm::vec3 _color);
+		void LoadModel(const std::string & _file_path, const glm::vec3 _color);
 		void SetObjectPositionModelSpace(const glm::vec3 & _position);
 		void SetObjectAttitude(const glm::mat4 & _attitude);
 		void SetObjectColor(const glm::vec3 & _color);

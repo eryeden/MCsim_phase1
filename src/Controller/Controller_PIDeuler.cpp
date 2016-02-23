@@ -46,7 +46,9 @@ Controller_PID_Euler::Controller_PID_Euler(MC::Core & _mc_core, const double & _
 	, error_previous(0)
 	, dt(_dt)
 	, p_base(4600)
+#ifdef _MSC_VER //Windows のみ
 	, xboxctrlr(1)
+#endif
 	, controller_altitude(_dt)
 	, controller_pitch(_dt)
 	, controller_roll(_dt)
@@ -71,7 +73,10 @@ void Controller_PID_Euler::Update() {
 	Vector3d rate_dps = core.get_state_vector_q().block<3, 1>(3, 0) * 180.0 / M_PI;
 
 
+#ifdef _MSC_VER //Windows のみ
 	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
+#endif
+	Matrix<double, 6, 1> ctrlr_state = MatrixXd::Zero(6, 1);
 	//printf("LX:%f\tLY:%f\tRX:%f\tRY:%f\tLT:%f\tRT:%f\n"
 	//	, ctrlr_state(0)
 	//	, ctrlr_state(1)
