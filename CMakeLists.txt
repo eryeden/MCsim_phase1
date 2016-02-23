@@ -32,8 +32,6 @@ SET(GL_LIBS GL glfw3 rt m dl Xrandr Xinerama Xxf86vm Xcursor Xext Xrender Xfixes
 #Common libraries
 SET(COMMON_INCLUDE ${PROJECT_SOURCE_DIR}/Common)
 
-
-
 #Simulator
 SET(SIM_INCLUDE ${PROJECT_SOURCE_DIR}/include)
 SET(SIM_SRC_PREFIX ${PROJECT_SOURCE_DIR}/src)
