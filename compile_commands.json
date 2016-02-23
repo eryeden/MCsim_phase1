@@ -1,0 +1,82 @@
+[
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/controls.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/controls.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/controls.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/Importer.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/Importer.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/Importer.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/PostProcessing.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/PostProcessing.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/PostProcessing.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/Object.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/Object.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/Object.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/World.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/World.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/World.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/main.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/main.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/main.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/shader.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/shader.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/shader.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/Supervisor.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/Supervisor.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/Supervisor.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/OpenGL/src/texture.cpp.o -c /home/ery/local_devel/MCsim_phase1/OpenGL/src/texture.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/OpenGL/src/texture.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Manager/Manager.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Manager/Manager.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Manager/Manager.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Controller/Controller_test.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Controller/Controller_test.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Controller/Controller_test.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Controller/Base.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Controller/Base.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Controller/Base.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Controller/Controller_PIDeuler.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Controller/Controller_PIDeuler.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Controller/Controller_PIDeuler.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Sim/MC_components.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Sim/MC_components.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Sim/MC_components.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Sim/MC_core.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Sim/MC_core.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Sim/MC_core.cpp"
+},
+{
+  "directory": "/home/ery/local_devel/MCsim_phase1/build",
+  "command": "/usr/bin/c++      -g -Wall -std=c++11 -I/home/ery/local_devel/MCsim_phase1/OpenGL/include -I/home/ery/local_devel/MCsim_phase1/Common -I/home/ery/local_devel/MCsim_phase1/include    -o CMakeFiles/MCsim_phase1.dir/src/Sim/MC_generator.cpp.o -c /home/ery/local_devel/MCsim_phase1/src/Sim/MC_generator.cpp",
+  "file": "/home/ery/local_devel/MCsim_phase1/src/Sim/MC_generator.cpp"
+}
+]
