@@ -174,7 +174,7 @@ int main() {
 	jr_plop3(0, 0) = 0.000021;
 	jr_plop3(1, 1) = 0.000008;
 	jr_plop3(2, 2) = 0.000021;
-
+	
 	MC::StLComponent body(
 		p2body
 		, mass_body
