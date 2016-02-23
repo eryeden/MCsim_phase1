@@ -32,6 +32,8 @@ SET(GL_LIBS GL glfw3 rt m dl Xrandr Xinerama Xxf86vm Xcursor Xext Xrender Xfixes
 #Common libraries
 SET(COMMON_INCLUDE ${PROJECT_SOURCE_DIR}/Common)
 
+
+
 #Simulator
 SET(SIM_INCLUDE ${PROJECT_SOURCE_DIR}/include)
 SET(SIM_SRC_PREFIX ${PROJECT_SOURCE_DIR}/src)
@@ -50,6 +52,9 @@ INCLUDE_DIRECTORIES(
   ${SIM_INCLUDE}
   )
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILEOPTIONS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} ${COMPILEOPTIONSXX}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKOPTIONS}")
 
 message("#################")
 message("${SIM_SRCS}")
@@ -61,13 +66,7 @@ message("#################")
 message("${GL_LIBS}")
 
 message("#################")
-message("  ${GLFW_INCLUDE_DIRS};${GL_INCLUDE};${COMMON_INCLUDE};${SIM_INCLUDE}")
-
-
-
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILEOPTIONS}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} ${COMPILEOPTIONSXX}")
+message("${GL_INCLUDE};${COMMON_INCLUDE};${SIM_INCLUDE}")
 
 message("##C_FLAGS##")
 message(${CMAKE_C_FLAGS})
@@ -75,7 +74,6 @@ message("##CXX_FLAGS##")
 message(${CMAKE_CXX_FLAGS})
 
 message("##LD_FLAGS##")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${LINKOPTIONS}")
 message(${CMAKE_EXE_LINKER_FLAGS})
 
 SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS)
@@ -88,15 +86,13 @@ set(SRCS
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-link_directories(
-  ${GL_LIB}
-  )
 
 add_executable(${CMAKE_PROJECT_NAME} ${SRCS})
 
+link_directories(
+  ${GL_LIB}
+  )
 target_link_libraries(${CMAKE_PROJECT_NAME} ${GL_LIBS})
-
-
 set(TARGET ${CMAKE_PROJECT_NAME})
 
 #ALLを入れてないと自動実行
