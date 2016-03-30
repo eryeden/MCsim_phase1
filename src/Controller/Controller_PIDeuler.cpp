@@ -72,6 +72,7 @@ void Controller_PID_Euler::Update() {
 	Vector3d position = core.get_state_vector_q().block<3, 1>(6, 0);
 	Vector3d rate_dps = core.get_state_vector_q().block<3, 1>(3, 0) * 180.0 / M_PI;
 
+       
 
 #ifdef _MSC_VER //Windows のみ
 	Matrix<double, 6, 1> ctrlr_state = xboxctrlr.GetSticksTrigers();
